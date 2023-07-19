@@ -88,7 +88,7 @@ workflow PICARD_PROFILER {
     ch_versions = ch_versions.mix(FASTQC.out.versions.first())
 
 
-    PICARD_CREATESEQUENCEDICTIONARY( [id:'fasta'], params.fasta)
+    PICARD_CREATESEQUENCEDICTIONARY( [[id:'fasta'], params.fasta])
 
 
 /*
