@@ -87,17 +87,14 @@ workflow PICARD_PROFILER {
     )
     ch_versions = ch_versions.mix(FASTQC.out.versions.first())
 
+    PICARD_CREATESEQUENCEDICTIONARY( [[id:'ref'], params.fasta])
+    ch_versions = ch_versions.mix(PICARD_CREATESEQUENCEDICTIONARY.out.versions.first())
 
-    PICARD_CREATESEQUENCEDICTIONARY( [[id:'fasta'], params.fasta])
-
-
-/*
     PICARD_BEDTOINTERVALLIST (
-        [ [ id:'test' ], params.fasta ],
-        [ [ id:'test' ], params.dict ],
+        [ [ id:'ref' ], params.fasta ],
+         PICARD_CREATESEQUENCEDICTIONARY.out.reference_dict,
         [] )
     ch_versions = ch_versions.mix(PICARD_BEDTOINTERVALLIST.out.versions.first())
-*/
 
 
     CUSTOM_DUMPSOFTWAREVERSIONS (
