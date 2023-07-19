@@ -27,12 +27,12 @@ def create_fastq_channel(LinkedHashMap row) {
     meta.id         = row.sample
 
     // add path(s) of the fastq file(s) to the meta map
-    def fastq_meta = []
+    def bam_meta = []
     if (!file(row.bam).exists()) {
         exit 1, "ERROR: Please check input samplesheet -> BAM file does not exist!\n${row.bam}"
     }
 
-    fastq_meta = [ meta, [ file(row.fastq_1) ] ]
+    bam_meta = [ meta, [ file(row.bam) ] ]
 
-    return fastq_meta
+    return bam_meta
 }
