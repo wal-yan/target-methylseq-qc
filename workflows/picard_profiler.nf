@@ -91,7 +91,7 @@ workflow PICARD_PROFILER {
     ch_versions = ch_versions.mix(PICARD_CREATESEQUENCEDICTIONARY.out.versions.first())
 
     PICARD_BEDTOINTERVALLIST (
-        [ [ id:'ref' ], params.fasta ],
+        [ [ id:'ref' ], params.bed ],
          PICARD_CREATESEQUENCEDICTIONARY.out.reference_dict,
         [] )
     ch_versions = ch_versions.mix(PICARD_BEDTOINTERVALLIST.out.versions.first())
