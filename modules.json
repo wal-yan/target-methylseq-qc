@@ -19,6 +19,16 @@
                         "branch": "master",
                         "git_sha": "f2d63bd5b68925f98f572eed70993d205cc694b7",
                         "installed_by": ["modules"]
+                    },
+                    "picard/collecthsmetrics": {
+                        "branch": "master",
+                        "git_sha": "0ce3ab0ac301f160225b22254fa238478b4389f2",
+                        "installed_by": ["modules"]
+                    },
+                    "picard/collectmultiplemetrics": {
+                        "branch": "master",
+                        "git_sha": "911696ea0b62df80e900ef244d7867d177971f73",
+                        "installed_by": ["modules"]
                     }
                 }
             }

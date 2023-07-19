@@ -44,7 +44,7 @@ include { PICARD_PROFILER } from './workflows/picard_profiler'
 //
 // WORKFLOW: Run main wal-yan/picard_profiler analysis pipeline
 //
-workflow WALYAN_PICARD_PROFILER {
+workflow WAL_YAN {
     PICARD_PROFILER ()
 }
 
@@ -59,7 +59,7 @@ workflow WALYAN_PICARD_PROFILER {
 // See: https://github.com/nf-core/rnaseq/issues/619
 //
 workflow {
-    WALYAN_PICARD_PROFILER ()
+    WAL_YAN ()
 }
 
 /*
