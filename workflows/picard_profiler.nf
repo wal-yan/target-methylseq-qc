@@ -50,6 +50,7 @@ include { FASTQC                      } from '../modules/nf-core/fastqc/main'
 include { MULTIQC                     } from '../modules/nf-core/multiqc/main'
 include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoftwareversions/main'
 
+include { PICARD_BEDTOINTERVALLIST } from '../modules/nf-core/picard/bedtointervallist/main'
 include { PICARD_COLLECTHSMETRICS } from '../modules/nf-core/picard/collecthsmetrics/main'
 include { PICARD_COLLECTMULTIPLEMETRICS } from '../modules/nf-core/picard/collectmultiplemetrics/main'
 
