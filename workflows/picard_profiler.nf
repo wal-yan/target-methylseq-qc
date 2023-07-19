@@ -86,7 +86,12 @@ workflow PICARD_PROFILER {
     )
     ch_versions = ch_versions.mix(FASTQC.out.versions.first())
 
-    PICARD_BEDTOINTERVALLIST ( params.fasta, params.dict, [] )
+    PICARD_BEDTOINTERVALLIST (
+        [ [ id:'test' ], params.fasta ],
+        [ [ id:'test' ], params.dict ],
+        [] )
+
+    ch_versions = ch_versions.mix(PICARD_BEDTOINTERVALLIST.out.versions.first())
 
     CUSTOM_DUMPSOFTWAREVERSIONS (
         ch_versions.unique().collectFile(name: 'collated_versions.yml')
