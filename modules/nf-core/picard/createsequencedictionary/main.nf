@@ -12,8 +12,8 @@ process PICARD_CREATESEQUENCEDICTIONARY {
 
     output:
     tuple val(meta), path("*.dict")                  , emit: reference_dict
-    tuple val(meta), path(fasta)                     , emit: reference_fasta
-    tuple val(meta), path(fai)                       , emit: reference_fai
+    tuple val(meta), path(fasta, includeInputs: true)                     , emit: reference_fasta
+    tuple val(meta), path(fai, includeInputs: true)                       , emit: reference_fai
     path "versions.yml"                              , emit: versions
 
     when:
