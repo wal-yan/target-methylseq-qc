@@ -105,14 +105,14 @@ workflow PICARD_PROFILER {
     //tuple val(meta), path(bam), path(bai), path(bait_intervals), path(target_intervals)
 
     PICARD_BEDTOINTERVALLIST.out.interval_list
-                            .map { m,f -> [f] }
+                            .map { m,f -> [f, f] }
                             .view()
 
-/*
+
     ch_in_picard_collecthsmetrics = INPUT_CHECK.out.reads
-                                    .join(PICARD_BEDTOINTERVALLIST.out.interval_list)
                                     .view()
 
+/*
    PICARD_COLLECTHSMETRICS (
        INPUT_CHECK.out.reads,
        PICARD_CREATESEQUENCEDICTIONARY.out.reference_fasta,
