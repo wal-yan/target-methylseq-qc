@@ -12,7 +12,7 @@ process PICARD_COLLECTHSMETRICS {
     tuple val(meta2), path(fasta)
     tuple val(meta3), path(fai)
     tuple val(meta4), path(dict)
-    path(bait_intervals), path(target_intervals)
+    tuple path(bait_intervals), path(target_intervals)
 
     output:
     tuple val(meta), path("*_metrics")  , emit: metrics

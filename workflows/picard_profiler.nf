@@ -102,8 +102,6 @@ workflow PICARD_PROFILER {
 
     ch_versions = ch_versions.mix(PICARD_BEDTOINTERVALLIST.out.versions.first())
 
-    //tuple val(meta), path(bam), path(bai), path(bait_intervals), path(target_intervals)
-
     ch_reformatted_intervals = PICARD_BEDTOINTERVALLIST.out.interval_list
                                 .map { m,f -> [f, f] }
 
