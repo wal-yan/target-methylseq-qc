@@ -32,7 +32,11 @@ def create_fastq_channel(LinkedHashMap row) {
         exit 1, "ERROR: Please check input samplesheet -> BAM file does not exist!\n${row.bam}"
     }
 
-    bam_meta = [ meta, file(row.bam) ]
+    if (!file(row.bai).exists()) {
+        exit 1, "ERROR: Please check input samplesheet -> BAI file does not exist!\n${row.bam}"
+    }
+
+    bam_meta = [ meta, file(row.bam), file(row.bai) ]
 
     return bam_meta
 }
