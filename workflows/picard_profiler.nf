@@ -100,7 +100,7 @@ workflow PICARD_PROFILER {
 
     ch_versions = ch_versions.mix(PICARD_BEDTOINTERVALLIST.out.versions.first())
 
-
+/*
 //FIXME
    PICARD_COLLECTHSMETRICS (
        INPUT_CHECK.out.reads,
@@ -108,7 +108,7 @@ workflow PICARD_PROFILER {
        [[id: 'ref']], //fai
        [[id: 'ref']]  //dict
    )
-
+*/
     CUSTOM_DUMPSOFTWAREVERSIONS (
         ch_versions.unique().collectFile(name: 'collated_versions.yml')
     )
