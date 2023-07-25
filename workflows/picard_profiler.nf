@@ -100,7 +100,7 @@ workflow PICARD_PROFILER {
 
     ch_versions = ch_versions.mix(PICARD_BEDTOINTERVALLIST.out.versions.first())
 
-    ch_in_picard_collecthsmetrics = INPUT_CHECK.out.reads
+    ch_in_picard_collecthsmetrics = INPUT_CHECK.out.reads.view()
 
    PICARD_COLLECTHSMETRICS (
        INPUT_CHECK.out.reads,
