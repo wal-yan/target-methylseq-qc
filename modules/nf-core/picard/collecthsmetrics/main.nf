@@ -8,7 +8,7 @@ process PICARD_COLLECTHSMETRICS {
         'biocontainers/picard:3.0.0--hdfd78af_1' }"
 
     input:
-    tuple val(meta), path(bam), path(bai), 
+    tuple val(meta), path(bam), path(bai)
     tuple val(meta2), path(fasta)
     tuple val(meta3), path(fai)
     tuple val(meta4), path(dict)
