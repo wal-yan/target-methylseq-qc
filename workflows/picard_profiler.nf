@@ -105,7 +105,7 @@ workflow PICARD_PROFILER {
     //tuple val(meta), path(bam), path(bai), path(bait_intervals), path(target_intervals)
 
     PICARD_BEDTOINTERVALLIST.out.interval_list
-                            .map(m,f -> [f])
+                            .map {m,f -> [f]}
                             .view()
 
 /*
