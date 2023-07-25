@@ -94,24 +94,12 @@ workflow PICARD_PROFILER {
     )
     ch_versions = ch_versions.mix(PICARD_CREATESEQUENCEDICTIONARY.out.versions.first())
 
-    PICARD_BEDTOINTERVALLIST (
-        [ [ id:'ref' ], params.bed ],
-         PICARD_CREATESEQUENCEDICTIONARY.out.reference_dict,
-        []
-    )
-
-    ch_versions = ch_versions.mix(PICARD_BEDTOINTERVALLIST.out.versions.first())
-
-    ch_reformatted_intervals = PICARD_BEDTOINTERVALLIST.out.interval_list
-                                .map { m,f -> [f, f] }
-
-
     PICARD_COLLECTHSMETRICS (
        INPUT_CHECK.out.reads,
        PICARD_CREATESEQUENCEDICTIONARY.out.reference_fasta,
        PICARD_CREATESEQUENCEDICTIONARY.out.reference_fai,
        PICARD_CREATESEQUENCEDICTIONARY.out.reference_dict,
-       ch_reformatted_intervals
+       params.bed
     )
 
 

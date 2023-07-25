@@ -12,7 +12,7 @@ process PICARD_COLLECTHSMETRICS {
     tuple val(meta2), path(fasta)
     tuple val(meta3), path(fai)
     tuple val(meta4), path(dict)
-    tuple path(bait_intervals), path(target_intervals)
+    path(bed)
 
     output:
     tuple val(meta), path("*_metrics")  , emit: metrics
@@ -33,18 +33,18 @@ process PICARD_COLLECTHSMETRICS {
         avail_mem = (task.memory.mega*0.8).intValue()
     }
 
-    def bait_interval_list = bait_intervals
+    def bait_interval_list = bed
     def bait_intervallist_cmd = ""
-    if (bait_intervals =~ /.(bed|bed.gz)$/){
-        bait_interval_list = bait_intervals.toString().replaceAll(/.(bed|bed.gz)$/, ".interval_list")
-        bait_intervallist_cmd = "picard -Xmx${avail_mem}M  BedToIntervalList --INPUT ${bait_intervals} --OUTPUT ${bait_interval_list} --SEQUENCE_DICTIONARY ${dict} --TMP_DIR ."
+    if (bed =~ /.(bed|bed.gz)$/){
+        bait_interval_list = bed.toString().replaceAll(/.(bed|bed.gz)$/, ".interval_list")
+        bait_intervallist_cmd = "picard -Xmx${avail_mem}M  BedToIntervalList --INPUT ${bed} --OUTPUT ${bait_interval_list} --SEQUENCE_DICTIONARY ${dict} --TMP_DIR ."
     }
 
-    def target_interval_list = target_intervals
+    def target_interval_list = bed
     def target_intervallist_cmd = ""
-    if (target_intervals =~ /.(bed|bed.gz)$/){
-        target_interval_list = target_intervals.toString().replaceAll(/.(bed|bed.gz)$/, ".interval_list")
-        target_intervallist_cmd = "picard -Xmx${avail_mem}M  BedToIntervalList --INPUT ${target_intervals} --OUTPUT ${target_interval_list} --SEQUENCE_DICTIONARY ${dict} --TMP_DIR ."
+    if (bed =~ /.(bed|bed.gz)$/){
+        target_interval_list = bed.toString().replaceAll(/.(bed|bed.gz)$/, ".interval_list")
+        target_intervallist_cmd = "picard -Xmx${avail_mem}M  BedToIntervalList --INPUT ${bed} --OUTPUT ${target_interval_list} --SEQUENCE_DICTIONARY ${dict} --TMP_DIR ."
     }
 
 
