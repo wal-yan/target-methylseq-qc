@@ -8,11 +8,13 @@ process PICARD_CREATESEQUENCEDICTIONARY {
         'biocontainers/picard:3.0.0--hdfd78af_1' }"
 
     input:
-    tuple val(meta), path(fasta)
+    tuple val(meta), path(fasta), path(fai)
 
     output:
-    tuple val(meta), path("*.dict"), emit: reference_dict
-    path "versions.yml"            , emit: versions
+    tuple val(meta), path("*.dict")                  , emit: reference_dict
+    tuple val(meta), path("*.fasta")                 , emit: reference_fasta
+    tuple val(meta), path("*.fai")                   , emit: reference_fai
+    path "versions.yml"                              , emit: versions
 
     when:
     task.ext.when == null || task.ext.when

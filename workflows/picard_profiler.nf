@@ -88,7 +88,7 @@ workflow PICARD_PROFILER {
     ch_versions = ch_versions.mix(FASTQC.out.versions.first())
 
     PICARD_CREATESEQUENCEDICTIONARY(
-        [[id:'ref'], params.fasta]
+        [[id:'ref'], params.fasta, params.fai]
     )
     ch_versions = ch_versions.mix(PICARD_CREATESEQUENCEDICTIONARY.out.versions.first())
 
@@ -100,15 +100,15 @@ workflow PICARD_PROFILER {
 
     ch_versions = ch_versions.mix(PICARD_BEDTOINTERVALLIST.out.versions.first())
 
-/*
-//FIXME
+    ch_in_picard_collecthsmetrics = INPUT_CHECK.out.reads
+
    PICARD_COLLECTHSMETRICS (
        INPUT_CHECK.out.reads,
-       [[id: 'ref']], //fasta
-       [[id: 'ref']], //fai
-       [[id: 'ref']]  //dict
+       PICARD_CREATESEQUENCEDICTIONARY.out.reference_fasta,
+       PICARD_CREATESEQUENCEDICTIONARY.out.reference_fai,
+       PICARD_CREATESEQUENCEDICTIONARY.out.reference_dict
    )
-*/
+
     CUSTOM_DUMPSOFTWAREVERSIONS (
         ch_versions.unique().collectFile(name: 'collated_versions.yml')
     )
