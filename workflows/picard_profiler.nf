@@ -100,15 +100,17 @@ workflow PICARD_PROFILER {
 
     ch_versions = ch_versions.mix(PICARD_BEDTOINTERVALLIST.out.versions.first())
 
-    tuple val(meta), path(bam), path(bai), path(bait_intervals), path(target_intervals)
+    //tuple val(meta), path(bam), path(bai), path(bait_intervals), path(target_intervals)
     ch_in_picard_collecthsmetrics = INPUT_CHECK.out.reads.view()
 
+/*
    PICARD_COLLECTHSMETRICS (
        INPUT_CHECK.out.reads,
        PICARD_CREATESEQUENCEDICTIONARY.out.reference_fasta,
        PICARD_CREATESEQUENCEDICTIONARY.out.reference_fai,
        PICARD_CREATESEQUENCEDICTIONARY.out.reference_dict
    )
+*/
 
     CUSTOM_DUMPSOFTWAREVERSIONS (
         ch_versions.unique().collectFile(name: 'collated_versions.yml')
