@@ -108,18 +108,14 @@ workflow PICARD_PROFILER {
                                 .map { m,f -> [f, f] }
 
 
-    ch_in_picard_collecthsmetrics = INPUT_CHECK.out.reads
-                                    .mix(ch_reformatted_intervals)
-                                    .view()
-
-/*
-   PICARD_COLLECTHSMETRICS (
+    PICARD_COLLECTHSMETRICS (
        INPUT_CHECK.out.reads,
        PICARD_CREATESEQUENCEDICTIONARY.out.reference_fasta,
        PICARD_CREATESEQUENCEDICTIONARY.out.reference_fai,
-       PICARD_CREATESEQUENCEDICTIONARY.out.reference_dict
-   )
-*/
+       PICARD_CREATESEQUENCEDICTIONARY.out.reference_dict,
+       ch_reformatted_intervals
+    )
+
 
     CUSTOM_DUMPSOFTWAREVERSIONS (
         ch_versions.unique().collectFile(name: 'collated_versions.yml')
