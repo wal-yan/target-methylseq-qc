@@ -50,7 +50,6 @@ include { FASTQC                      } from '../modules/nf-core/fastqc/main'
 include { MULTIQC                     } from '../modules/nf-core/multiqc/main'
 include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoftwareversions/main'
 
-include { PICARD_BEDTOINTERVALLIST } from '../modules/nf-core/picard/bedtointervallist/main'
 include { PICARD_COLLECTHSMETRICS } from '../modules/nf-core/picard/collecthsmetrics/main'
 include { PICARD_COLLECTMULTIPLEMETRICS } from '../modules/nf-core/picard/collectmultiplemetrics/main'
 include { PICARD_CREATESEQUENCEDICTIONARY } from '../modules/nf-core/picard/createsequencedictionary/main'
@@ -102,6 +101,12 @@ workflow PICARD_PROFILER {
        params.bed
     )
 
+
+    PICARD_COLLECTMULTIPLEMETRICS (
+       INPUT_CHECK.out.reads,
+       PICARD_CREATESEQUENCEDICTIONARY.out.reference_fasta,
+       PICARD_CREATESEQUENCEDICTIONARY.out.reference_fai
+    )
 
     CUSTOM_DUMPSOFTWAREVERSIONS (
         ch_versions.unique().collectFile(name: 'collated_versions.yml')

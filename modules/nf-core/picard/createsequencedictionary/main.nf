@@ -11,10 +11,10 @@ process PICARD_CREATESEQUENCEDICTIONARY {
     tuple val(meta), path(fasta), path(fai)
 
     output:
-    tuple val(meta), path("*.dict")                  , emit: reference_dict
+    tuple val(meta), path("*.dict")                                       , emit: reference_dict
     tuple val(meta), path(fasta, includeInputs: true)                     , emit: reference_fasta
     tuple val(meta), path(fai, includeInputs: true)                       , emit: reference_fai
-    path "versions.yml"                              , emit: versions
+    path "versions.yml"                                                   , emit: versions
 
     when:
     task.ext.when == null || task.ext.when
