@@ -86,7 +86,7 @@ workflow PICARD_PROFILER {
     // MODULE: Run FastQC
     //
     ch_in_fastqc = INPUT_CHECK.out.reads
-                                .map { m, i, b -> [m, b] }
+                                .map { m, b, i -> [m, b] }
 
     FASTQC (
         ch_in_fastqc
