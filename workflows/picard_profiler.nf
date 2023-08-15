@@ -50,6 +50,8 @@ include { FASTQC                      } from '../modules/nf-core/fastqc/main'
 include { MULTIQC                     } from '../modules/nf-core/multiqc/main'
 include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoftwareversions/main'
 
+include { SAMTOOLS_FAIDX } from '../modules/nf-core/samtools/faidx/main'
+include { SAMTOOLS_INDEX } from '../modules/nf-core/samtools/index/main'
 include { PICARD_COLLECTHSMETRICS } from '../modules/nf-core/picard/collecthsmetrics/main'
 include { PICARD_COLLECTMULTIPLEMETRICS } from '../modules/nf-core/picard/collectmultiplemetrics/main'
 include { PICARD_CREATESEQUENCEDICTIONARY } from '../modules/nf-core/picard/createsequencedictionary/main'
@@ -65,6 +67,8 @@ def multiqc_report = []
 
 workflow PICARD_PROFILER {
 
+// sampleName,bam,bai
+
     ch_versions = Channel.empty()
 
     //
@@ -78,7 +82,6 @@ workflow PICARD_PROFILER {
     // See the documentation https://nextflow-io.github.io/nf-validation/samplesheets/fromSamplesheet/
     // ! There is currently no tooling to help you write a sample sheet schema
 
-/*
     //
     // MODULE: Run FastQC
     //
@@ -86,10 +89,22 @@ workflow PICARD_PROFILER {
         INPUT_CHECK.out.reads
     )
     ch_versions = ch_versions.mix(FASTQC.out.versions.first())
-*/
+
+
+    if(!params.fai) {
+
+        SAMTOOLS_FAIDX(params.fasta, [[],[]])
+
+        ch_in_picard_createsequencedict = (SAMTOOLS_FAIDX.out.fa).join(SAMTOOLS_FAIDX.out.fai)
+
+    } else {
+
+        ch_in_picard_createsequencedict = Channel.of([[id:'ref'], params.fasta, params.fai])
+
+    }
 
     PICARD_CREATESEQUENCEDICTIONARY(
-        [[id:'ref'], params.fasta, params.fai]
+        ch_in_picard_createsequencedict
     )
     ch_versions = ch_versions.mix(PICARD_CREATESEQUENCEDICTIONARY.out.versions.first())
 
@@ -100,6 +115,7 @@ workflow PICARD_PROFILER {
        PICARD_CREATESEQUENCEDICTIONARY.out.reference_dict,
        params.bed
     )
+    ch_versions = ch_versions.mix(PICARD_COLLECTHSMETRICS.out.versions.first())
 
 
     PICARD_COLLECTMULTIPLEMETRICS (
@@ -107,6 +123,7 @@ workflow PICARD_PROFILER {
        PICARD_CREATESEQUENCEDICTIONARY.out.reference_fasta,
        PICARD_CREATESEQUENCEDICTIONARY.out.reference_fai
     )
+    ch_versions = ch_versions.mix(PICARD_COLLECTMULTIPLEMETRICS.out.versions.first())
 
     CUSTOM_DUMPSOFTWAREVERSIONS (
         ch_versions.unique().collectFile(name: 'collated_versions.yml')
@@ -125,7 +142,7 @@ workflow PICARD_PROFILER {
     ch_multiqc_files = ch_multiqc_files.mix(ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
     ch_multiqc_files = ch_multiqc_files.mix(ch_methods_description.collectFile(name: 'methods_description_mqc.yaml'))
     ch_multiqc_files = ch_multiqc_files.mix(CUSTOM_DUMPSOFTWAREVERSIONS.out.mqc_yml.collect())
-    //ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]}.ifEmpty([]))
+    ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]}.ifEmpty([]))
 
     MULTIQC (
         ch_multiqc_files.collect(),
