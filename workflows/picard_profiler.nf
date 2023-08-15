@@ -98,7 +98,7 @@ workflow PICARD_PROFILER {
 
         SAMTOOLS_FAIDX([[id: 'ref'], params.fasta], [[],[]])
 
-        ch_in_picard_createsequencedict = (SAMTOOLS_FAIDX.out.fa).join(SAMTOOLS_FAIDX.out.fai)
+        ch_in_picard_createsequencedict = (SAMTOOLS_FAIDX.out.fa).join(SAMTOOLS_FAIDX.out.fai).first()
 
     } else {
 
