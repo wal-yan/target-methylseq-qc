@@ -93,7 +93,7 @@ workflow PICARD_PROFILER {
 
     if(!params.fai) {
 
-        SAMTOOLS_FAIDX(params.fasta, [[],[]])
+        SAMTOOLS_FAIDX([[], params.fasta], [[],[]])
 
         ch_in_picard_createsequencedict = (SAMTOOLS_FAIDX.out.fa).join(SAMTOOLS_FAIDX.out.fai)
 
