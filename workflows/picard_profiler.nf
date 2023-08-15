@@ -89,7 +89,7 @@ workflow PICARD_PROFILER {
                                 .map { m, i, b -> [m, b] }
 
     FASTQC (
-        ch_in_fastqc =
+        ch_in_fastqc
     )
     ch_versions = ch_versions.mix(FASTQC.out.versions.first())
 
