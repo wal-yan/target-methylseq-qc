@@ -106,6 +106,8 @@ workflow PICARD_PROFILER {
 
     }
 
+    ch_in_picard_createsequencedict.view()
+
     PICARD_CREATESEQUENCEDICTIONARY(
         ch_in_picard_createsequencedict
     )
