@@ -85,8 +85,11 @@ workflow PICARD_PROFILER {
     //
     // MODULE: Run FastQC
     //
+    ch_in_fastqc = INPUT_CHECK.out.reads
+                                .map { m, i, b -> [m, b] }
+
     FASTQC (
-        INPUT_CHECK.out.bam
+        ch_in_fastqc =
     )
     ch_versions = ch_versions.mix(FASTQC.out.versions.first())
 
