@@ -98,17 +98,13 @@ workflow PICARD_PROFILER {
 
         SAMTOOLS_FAIDX([[id: 'ref'], params.fasta], [[],[]])
 
-        SAMTOOLS_FAIDX.out.fa.view()
-        SAMTOOLS_FAIDX.out.fai.view()
-        ch_in_picard_createsequencedict = (SAMTOOLS_FAIDX.out.fa).join(SAMTOOLS_FAIDX.out.fai)
+        ch_in_picard_createsequencedict = (SAMTOOLS_FAIDX.out.fa).join(SAMTOOLS_FAIDX.out.fai).first()
 
     } else {
 
-        ch_in_picard_createsequencedict = Channel.of([[id:'ref'], params.fasta, params.fai])
+        ch_in_picard_createsequencedict = Channel.value([[id:'ref'], params.fasta, params.fai])
 
     }
-
-    ch_in_picard_createsequencedict.view()
 
     PICARD_CREATESEQUENCEDICTIONARY(
         ch_in_picard_createsequencedict
@@ -149,7 +145,9 @@ workflow PICARD_PROFILER {
     ch_multiqc_files = ch_multiqc_files.mix(ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
     ch_multiqc_files = ch_multiqc_files.mix(ch_methods_description.collectFile(name: 'methods_description_mqc.yaml'))
     ch_multiqc_files = ch_multiqc_files.mix(CUSTOM_DUMPSOFTWAREVERSIONS.out.mqc_yml.collect())
+
     ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]}.ifEmpty([]))
+    ch_multiqc_files = ch_multiqc_files.mix(PICARD_COLLECTMULTIPLEMETRICS.out.metrics.collect{it[1]}.ifEmpty([]))
 
     MULTIQC (
         ch_multiqc_files.collect(),
