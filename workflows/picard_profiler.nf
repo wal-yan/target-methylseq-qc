@@ -71,6 +71,12 @@ workflow PICARD_PROFILER {
 
     ch_versions = Channel.empty()
 
+    //NOTE: Mock channel to check existance of different param files
+    Channel.of([file(params.input, checkIfExists:true),
+                file(params.fasta, checkIfExists:true),
+                file(params.fai, checkIfExists:true),
+                file(params.bed, checkIfExists:true)])
+
     //
     // SUBWORKFLOW: Read in samplesheet, validate and stage input files
     //
