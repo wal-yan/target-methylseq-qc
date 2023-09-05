@@ -1,10 +1,10 @@
 Run Name: $runName
 
 <% if (success){
-    out << "## wal-yan/picard_profiler execution completed successfully! ##"
+    out << "## wal-yan/picard-profiler execution completed successfully! ##"
 } else {
     out << """####################################################
-## wal-yan/picard_profiler execution completed unsuccessfully! ##
+## wal-yan/picard-profiler execution completed unsuccessfully! ##
 ####################################################
 The exit status of the task that caused the workflow execution to fail was: $exitStatus.
 The full error message was:
@@ -27,5 +27,5 @@ Pipeline Configuration:
 <% out << summary.collect{ k,v -> " - $k: $v" }.join("\n") %>
 
 --
-wal-yan/picard_profiler
-https://github.com/wal-yan/picard_profiler
+wal-yan/picard-profiler
+https://github.com/wal-yan/picard-profiler

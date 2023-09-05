@@ -1,4 +1,4 @@
-# wal-yan/picard_profiler: Citations
+# wal-yan/picard-profiler: Citations
 
 ## [nf-core](https://pubmed.ncbi.nlm.nih.gov/32055031/)
 

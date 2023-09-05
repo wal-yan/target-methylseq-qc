@@ -1,4 +1,4 @@
-# wal-yan/picard_profiler: Output
+# wal-yan/picard-profiler: Output
 
 ## Introduction
 

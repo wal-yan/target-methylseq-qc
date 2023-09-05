@@ -17,7 +17,7 @@
                         "size": "Large",
                         "weight": "Bolder",
                         "color": "<% if (success) { %>Good<% } else { %>Attention<%} %>",
-                        "text": "wal-yan/picard_profiler v${version} - ${runName}",
+                        "text": "wal-yan/picard-profiler v${version} - ${runName}",
                         "wrap": true
                     },
                     {

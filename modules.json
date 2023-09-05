@@ -1,6 +1,6 @@
 {
-    "name": "wal-yan/picard_profiler",
-    "homePage": "https://github.com/wal-yan/picard_profiler",
+    "name": "wal-yan/picard-profiler",
+    "homePage": "https://github.com/wal-yan/picard-profiler",
     "repos": {
         "https://github.com/nf-core/modules.git": {
             "modules": {

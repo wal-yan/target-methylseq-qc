@@ -1,6 +1,6 @@
 author: abhi18av
 description: A Nextflow pipeline for gathering multiple picard metrics from BAM files
-name: picard_profiler
+name: picard-profiler
 prefix: wal-yan
 skip:
 - igenomes

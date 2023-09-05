@@ -1,9 +1,9 @@
 #!/usr/bin/env nextflow
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    wal-yan/picard_profiler
+    wal-yan/picard-profiler
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    Github : https://github.com/wal-yan/picard_profiler
+    Github : https://github.com/wal-yan/picard-profiler
 ----------------------------------------------------------------------------------------
 */
 
@@ -39,10 +39,10 @@ WorkflowMain.initialise(workflow, params, log)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { PICARD_PROFILER } from './workflows/picard_profiler'
+include { PICARD_PROFILER } from './workflows/picard-profiler'
 
 //
-// WORKFLOW: Run main wal-yan/picard_profiler analysis pipeline
+// WORKFLOW: Run main wal-yan/picard-profiler analysis pipeline
 //
 workflow WAL_YAN {
     PICARD_PROFILER ()

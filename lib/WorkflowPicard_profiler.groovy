@@ -1,5 +1,5 @@
 //
-// This file holds several functions specific to the workflow/picard_profiler.nf in the wal-yan/picard_profiler pipeline
+// This file holds several functions specific to the workflow/picard-profiler.nf in the wal-yan/picard-profiler pipeline
 //
 
 import nextflow.Nextflow
