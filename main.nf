@@ -39,7 +39,7 @@ WorkflowMain.initialise(workflow, params, log)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { PICARD_PROFILER } from './workflows/picard-profiler'
+include { PICARD_PROFILER } from './workflows/picard_profiler'
 
 //
 // WORKFLOW: Run main wal-yan/picard-profiler analysis pipeline
