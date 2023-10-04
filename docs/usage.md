@@ -25,7 +25,6 @@ CONTROL_REP1,AEG588A1_S1_L002_R1_001.markdup.sorted.bam.bai,AEG588A1_S1_L002_R2_
 CONTROL_REP2,AEG588A2_S2_L002_R1_001.markdup.sorted.bam.bai,AEG588A2_S2_L002_R2_001.markdup.sorted.bam
 CONTROL_REP3,AEG588A3_S3_L002_R1_001.markdup.sorted.bam.bai,AEG588A3_S3_L002_R2_001.markdup.sorted.bam
 
-# didnt change the file names, literally just changed the sample type to bam/bai. Used the same samples as the example that was already given.
 ```
 
 | Column    | Description                                                                                                                                                                            |
@@ -34,7 +33,7 @@ CONTROL_REP3,AEG588A3_S3_L002_R1_001.markdup.sorted.bam.bai,AEG588A3_S3_L002_R2_
 | `bai` | Full path to bai file for sample. File must be those that are "mark duplicate alignments" in sorted files from previous methylseq runs.                                                              |
 | `bam` | Full path to bam file for sample. File must be those that are "mark duplicate alignments" in sorted files from previous methylseq runs.                                                             |
 
-An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline. `# example samplesheet still needs to be uploaded`
+An [example samplesheet](../assets/test_samplesheet.csv) has been provided with the pipeline.
 
 ## Running the pipeline
 
@@ -87,7 +86,7 @@ When you run the above command, Nextflow automatically pulls the pipeline code f
 nextflow pull wal-yan/picard-profiler
 ```
 
-### Reproducibility - how much of this should be edited? reading through this it sounds fine?
+### Reproducibility
 
 It is a good idea to specify a pipeline version when running the pipeline on your data. This ensures that a specific version of the pipeline code and software are used when you run your pipeline. If you keep using the same tag, you'll be running the same version of the pipeline, even if there have been changes to the code since.
 
@@ -99,7 +98,7 @@ To further assist in reproducbility, you can use share and re-use [parameter fil
 
 > 💡 If you wish to share such profile (such as upload as supplementary material for academic publications), make sure to NOT include cluster specific paths to files, nor institutional specific profiles.
 
-## Core Nextflow arguments - assuming these all stay the same?
+## Core Nextflow arguments 
 
 > **NB:** These options are part of Nextflow and use a _single_ hyphen (pipeline parameters use a double-hyphen).
 
@@ -146,7 +145,7 @@ You can also supply a run name to resume a specific run: `-resume [run-name]`. U
 
 Specify the path to a specific config file (this is a core Nextflow command). See the [nf-core website documentation](https://nf-co.re/usage/configuration) for more information.
 
-## Custom configuration - unsure how much of this is still relevant for picard profiler? Does all of this still apply?
+## Custom configuration
 
 ### Resource requests
 
