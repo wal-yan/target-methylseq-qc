@@ -1,104 +1,114 @@
 ---
-title: 'Gala: A Python package for galactic dynamics'
+title: 'Picard-profiler: a lightweight pipeline for collecting Picard metrics from targeted sequence mapping files.'
 tags:
   - nextflow
   - pipeline
   - bioinformatics
   - picard
+  - metrics
   - bam
   - sam
   - cram
 authors:
-  - name: Adrian M. Price-Whelan
-    orcid: 0000-0000-0000-0000
-    equal-contrib: true
-    affiliation: "1, 2" # (Multiple affiliations must be quoted)
-  - name: Author Without ORCID
-    equal-contrib: true # (This is how you can denote equal contributions between multiple authors)
-    affiliation: 2
-  - name: Author with no affiliation
-    corresponding: true # (This is how to denote the corresponding author)
-    affiliation: 3
-  - given-names: Ludwig
-    dropping-particle: van
-    surname: Beethoven
-    affiliation: 3
+  - name: "Abhinav Sharma"
+    orcid: 0000-0002-6402-6993
+    affiliation: 1
+  - name: "Talya Conradie"
+    orcid: 0009-0007-6380-5737
+    affiliation: "2, 3"
+  - name: "David Martino"
+    orcid: 0000-0001-6823-4696
+    affiliation: "2"
+  - name: "Stephen Stick"
+    orcid: 0000-0002-5386-8482
+    affiliation: "2, 4, 5"
+  - name: "Patricia Agudelo-Romero"
+    orcid: 0000-0002-3703-4111
+    affiliation: "2, 6, 7"
+
 affiliations:
- - name: Lyman Spitzer, Jr. Fellow, Princeton University, USA
-   index: 1
- - name: Institution Name, Country
-   index: 2
- - name: Independent Researcher, Country
-   index: 3
-date: 13 August 2017
+  - name: Division of Molecular Biology and Human Genetics, Faculty of Medicine and Health Sciences, Stellenbosch University, Cape Town.
+    index: 1
+  - name: Wal-yan Respiratory Research Centre, Telethon Kids Institute, WA, Australia
+    index: 2
+  - name: Medical, Molecular and Forensic Sciences, Murdoch University, WA, Australia
+    index: 3
+  - name: Department of Respiratory and Sleep Medicine, Perth Children’s Hospital for Children, WA, Australia.
+    index: 4
+  - name: Centre for Cell Therapy and Regenerative Medicine, School of Medicine and Pharmacology, WA, Australia.
+    index: 5
+  - name: Australian Research Council Centre of Excellence in Plant Energy Biology, School of Molecular Sciences, The University of Western Australia, WA, Australia
+    index: 6
+  - name: European Virus Bioinformatics Center, TH, Germany.
+    index: 7
+
+date: 05 October 2023
 bibliography: paper.bib
 
 # Optional fields if submitting to a AAS journal too, see this blog post:
 # https://blog.joss.theoj.org/2018/12/a-new-collaboration-with-aas-publishing
-aas-doi: 10.3847/xxxxx <- update this with the DOI from AAS once you know it.
-aas-journal: Astrophysical Journal <- The name of the AAS journal.
+#aas-doi: 10.3847/xxxxx <- update this with the DOI from AAS once you know it.
+#aas-journal: Astrophysical Journal <- The name of the AAS journal.
 ---
 
 # Summary
 
-The forces on stars, galaxies, and dark matter under external gravitational
-fields lead to the dynamical evolution of structures in the universe. The orbits
-of these bodies are therefore key to understanding the formation, history, and
-future state of galaxies. The field of "galactic dynamics," which aims to model
-the gravitating components of galaxies to study their structure and evolution,
-is now well-established, commonly taught, and frequently used in astronomy.
-Aside from toy problems and demonstrations, the majority of problems require
-efficient numerical tools, many of which require the same base code (e.g., for
-performing numerical orbit integration).
 
-# Statement of need
+Next-generation targeted genome sequencing offers the opportunity to analyse regions of interest within a genome.
+While it is possible to incorporate targeted sequencing into whole-genome sequencing (WGS) pipelines, there remains a gap in accurately converting WGS metrics into precise target metrics.
+Here, we introduce the Picard-profiler pipeline (https://doi.org/10.5281/zenodo.8251379 ), designed to collects metrics from alignment files in targeted sequencing written in Nextflow [@di_tommaso_nextflow_2017].
+Picard-profiler accepts inputs in various alignment formats, including SAM, BAM and CRAM files [@hts_spec].
+Additionally, to refine the metrics to the target regions the inclusion of a FASTA reference file and BED intervals file is required.
+Subsequently, a MultiQC report [@ewels_multiqc_2016] will be generated, encompassing the updated sequencing coverage data for the targeted regions with some extras.
 
-`Gala` is an Astropy-affiliated Python package for galactic dynamics. Python
-enables wrapping low-level languages (e.g., C) for speed without losing
-flexibility or ease-of-use in the user-interface. The API for `Gala` was
-designed to provide a class-based and user-friendly interface to fast (C or
-Cython-optimized) implementations of common operations such as gravitational
-potential and force evaluation, orbit integration, dynamical transformations,
-and chaos indicators for nonlinear dynamics. `Gala` also relies heavily on and
-interfaces well with the implementations of physical units and astronomical
-coordinate systems in the `Astropy` package [@astropy] (`astropy.units` and
-`astropy.coordinates`).
+Picard-profiler was built using Nextflow workflow manager and integrates Picard metrics from
+GATK picard tools [@mckenna_genome_2010; @Picard2019toolkit], using two specific metrics: (i) collecthsmetrics [@picard_collecthsmetrics_2019], which relies upon the hybrid-selection technique to capture exon sequences for targeted sequencing experiments; and
+(ii) collectmultiplemetrics [@picard_collectmultiplemetrics_2021], which captures closely related metrics such as alignment summary, insert size, and quality score.
+The final MultiQC report automatically collates the report from FastQC [@andrews_fastqc_2010] and Picard tools in an HTML document, which could be shared with collaborators or added as supplementary material in publications.
 
-`Gala` was designed to be used by both astronomical researchers and by
-students in courses on gravitational dynamics or astronomy. It has already been
-used in a number of scientific publications [@Pearson:2017] and has also been
-used in graduate courses on Galactic dynamics to, e.g., provide interactive
-visualizations of textbook material [@Binney:2008]. The combination of speed,
-design, and support for Astropy functionality in `Gala` will enable exciting
-scientific explorations of forthcoming data releases from the *Gaia* mission
-[@gaia] by students and experts alike.
+Picard-profiler is a portable pipeline compatible with multiple platforms, such as local desktop or workstation machines, high-performance computing environments and cloud infrastructure.
+Although Picard-profiler was originally created for calculating coverage in target sequencing as a follow-up step to the nf-core/methylseq pipeline, within the Airway Epithelium Respiratory Illnesses and Allergy (AERIAL) paediatric cohort study[@kicic-starcevich_airway_2023]; its versatility allows for extending its application to other sequencing panels from various next-generation methods.
 
-# Citations
 
-Citations to entries in paper.bib should be in
-[rMarkdown](http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html)
-format.
+# Design principles and capabilities
 
-If you want to cite a software repository URL (e.g. something on GitHub without a preferred
-citation) then you can do it with the example BibTeX entry below for @fidgit.
+Picard-profiler pipeline builds upon the standardised pipeline template maintained by the nf-core community [@ewels_nf-core_2020] for Nextflow  pipelines as well as makes use of the nf-core/modules project to install modules for FastQC, MultiQC [@ewels_multiqc_2016] , Picard as well as Samtools [@danecek_twelve_2021] within the pipeline \autoref{fig:subway-map}.
 
-For a quick reference, the following citation commands can be used:
-- `@author:2001`  ->  "Author et al. (2001)"
-- `[@author:2001]` -> "(Author et al., 2001)"
-- `[@author1:2001; @author2:2001]` -> "(Author1 et al., 2001; Author2 et al., 2002)"
 
-# Figures
+The use of the nf-core template facilitates in keeping the design of the pipeline generic and portable across different execution platforms, therefore the Picard-profiler pipeline can be used on local machines, HPC orchestrators (e.g. SLURM, PBS), and cloud computing systems such as AWS Batch, Azure Batch, Google Batch, in addition to the more generic Kubernetes distribution.
 
-Figures can be included like this:
-![Caption for example figure.\label{fig:example}](figure.png)
-and referenced from text using \autoref{fig:example}.
 
-Figure sizes can be customized by adding an optional second parameter:
-![Caption for example figure.](figure.png){ width=20% }
+![Subway map for various steps in the picard-profiler pipeline.\label{fig:subway-map}](subway_pic.svg)
 
-# Acknowledgements
+In addition to the base workflow as mentioned in \autoref{fig:subway-map}, the pipeline also includes optional picard/createsequencedictionary [@picard_createsequencedictionary_2022] and Samtools modules to aid users in automatically generating the required genome dictionary (DICT) file, in case they have only the reference FASTA and BED files but intend to use the pipeline. Furthermore, depending on the quality check requirements by the users, we have enabled the metrics collection for 10x, 20x, 30x and 50x coverage.
 
-We acknowledge contributions from Brigitta Sipocz, Syrtis Major, and Semyeong
-Oh, and support from Kathryn Johnston during the genesis of this project.
+# Input and output
+
+As standard input in the Nextflow pipelines, picard-profiler expects a CSV samplesheet as an input with the following fields.
+
+:An example of a samplesheet for picard-profiler with three required columns, capturing the (i) name of the sample (ii) path to BAM index file and (iii) path to the BAM file. []{label="samplesheet"}
+
+| sample    | bai                    | bam                        |
+|-----------|------------------------|----------------------------|
+| sample-01 | /path/to/sample-01.bai | /path/to/sample-01.bam     |
+| sample-02 | /path/to/sample-02.bai | /path/to/sample-02.bam     |
+
+
+The very first step in the pipeline, as per the best practices of the nf-core template, is to check the validity of the file paths specified to be either a POSIX compliant file system or a cloud object storage path. Upon completion, the pipeline generates a MultiQC file with the relevant results of the analysis \autoref{fig:multiqc}.
+
+![MultiQC report generated for Picard-profiler highlighting the refine metrics from targeted sequencing at 10X, 20X, 30X and 50X coverage.\label{fig:multiqc}](multiqc.tiff)
+
+
+# Tutorials and documentation
+
+The steps needed to configure the pipeline inputs and configuration for your infrastructure are available in the documentation within the Github repository itself. Getting started with the pipeline setup is straightforward given that (i) `Java` (LTS > 11)  (ii) `Nextflow` (> 23.04) and (iii) a package manager (e.g. `conda`) or a container system (e.g. `docker`) are available in the execution environment. The in-built test profile from the pipeline can then be used to execute the profile on the relevant infrastructure with some test dataset.
+
+
+```bash
+$ nextflow run wal-yan/picard-profiler -profile test,docker –outdir test_results
+```
+
+# Funding Statement
+This work was supported by the National Health and Medical Research Council of Australia (NHMRC115648).
 
 # References
