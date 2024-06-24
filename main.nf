@@ -33,6 +33,7 @@ if (params.validate_params) {
 
 WorkflowMain.initialise(workflow, params, log)
 
+
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     NAMED WORKFLOW FOR PIPELINE
@@ -45,7 +46,24 @@ include { PICARD_PROFILER } from './workflows/picard_profiler'
 // WORKFLOW: Run main wal-yan/picard-profiler analysis pipeline
 //
 workflow WAL_YAN {
-    PICARD_PROFILER ()
+    if(params.picard_profiler) {
+        PICARD_PROFILER ()
+
+    } else {
+        ch_in_bedtools = Channel.fromPath( params.samplesheet )
+            .splitCsv(header: false, skip: 1)
+            .map{ row ->
+                {
+                    sampleName          = row[0]
+                    bedGraphFile        = row[1]
+
+                    return tuple([id:sampleName], file(bedGraphFile, checkIfExists: true))
+                }
+            }
+
+        BED_FILTER (ch_in_bedtools, params.bed)
+
+    }
 }
 
 /*
