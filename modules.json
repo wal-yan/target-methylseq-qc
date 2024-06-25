@@ -10,6 +10,11 @@
                         "git_sha": "76cc4938c1f6ea5c7d83fed1eeffc146787f9543",
                         "installed_by": ["modules"]
                     },
+                    "bedtools/intersect": {
+                        "branch": "master",
+                        "git_sha": "c1532c77717ad7c64752b26b0fd9b4556bdef272",
+                        "installed_by": ["modules"]
+                    },
                     "fastqc": {
                         "branch": "master",
                         "git_sha": "c8e35eb2055c099720a75538d1b8adb3fb5a464c",
