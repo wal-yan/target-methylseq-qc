@@ -1,4 +1,4 @@
-# wal-yan/picard-profiler: Citations
+# wal-yan/target-methylseq-qc: Citations
 
 ## [nf-core](https://pubmed.ncbi.nlm.nih.gov/32055031/)
 

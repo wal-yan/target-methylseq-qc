@@ -1,4 +1,4 @@
-# wal-yan/picard-profiler: Output
+# wal-yan/target-methylseq-qc: Output
 
 ## Introduction
 

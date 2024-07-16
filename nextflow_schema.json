@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema",
-    "$id": "https://raw.githubusercontent.com/wal-yan/picard-profiler/master/nextflow_schema.json",
-    "title": "wal-yan/picard-profiler pipeline parameters",
+    "$id": "https://raw.githubusercontent.com/wal-yan/target-methylseq-qc/master/nextflow_schema.json",
+    "title": "wal-yan/target-methylseq-qc pipeline parameters",
     "description": "A Nextflow pipeline for gathering multiple picard metrics from BAM files",
     "type": "object",
     "definitions": {

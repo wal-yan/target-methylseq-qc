@@ -1,6 +1,6 @@
 {
-    "name": "wal-yan/picard-profiler",
-    "homePage": "https://github.com/wal-yan/picard-profiler",
+    "name": "wal-yan/target-methylseq-qc",
+    "homePage": "https://github.com/wal-yan/target-methylseq-qc",
     "repos": {
         "https://github.com/nf-core/modules.git": {
             "modules": {

@@ -1,9 +1,9 @@
 #!/usr/bin/env nextflow
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    wal-yan/picard-profiler
+    wal-yan/target-methylseq-qc
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    Github : https://github.com/wal-yan/picard-profiler
+    Github : https://github.com/wal-yan/target-methylseq-qc
 ----------------------------------------------------------------------------------------
 */
 
@@ -43,9 +43,9 @@ WorkflowMain.initialise(workflow, params, log)
 include { PICARD_PROFILER } from './workflows/picard_profiler'
 
 //
-// WORKFLOW: Run main wal-yan/picard-profiler analysis pipeline
+// WORKFLOW: Run main wal-yan/target-methylseq-qc analysis pipeline
 //
-workflow WAL_YAN {
+workflow TARGET_METHYLSEQ_QC {
     if(params.picard_profiler) {
         PICARD_PROFILER ()
 
@@ -77,7 +77,7 @@ workflow WAL_YAN {
 // See: https://github.com/nf-core/rnaseq/issues/619
 //
 workflow {
-    WAL_YAN ()
+    TARGET_METHYLSEQ_QC ()
 }
 
 /*

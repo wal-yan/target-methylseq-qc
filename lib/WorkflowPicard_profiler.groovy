@@ -1,5 +1,5 @@
 //
-// This file holds several functions specific to the workflow/picard-profiler.nf in the wal-yan/picard-profiler pipeline
+// This file holds several functions specific to the workflow/target-methylseq-qc.nf in the wal-yan/target-methylseq-qc pipeline
 //
 
 import nextflow.Nextflow
