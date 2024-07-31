@@ -101,13 +101,13 @@ workflow TARGET_METHYLSEQ_QC {
 
     if(!params.ref_fai) {
 
-        SAMTOOLS_FAIDX([[id: 'ref'], params.fasta], [[],[]])
+        SAMTOOLS_FAIDX([[id: 'ref'], params.ref_fasta], [[],[]])
 
         ch_in_picard_createsequencedict = (SAMTOOLS_FAIDX.out.fa).join(SAMTOOLS_FAIDX.out.fai).first()
 
     } else {
 
-        ch_in_picard_createsequencedict = Channel.value([[id:'ref'], params.fasta, params.fai])
+        ch_in_picard_createsequencedict = Channel.value([[id:'ref'], params.ref_fasta, params.ref_fai])
 
     }
 
