@@ -65,7 +65,7 @@ include { PICARD_CREATESEQUENCEDICTIONARY } from '../modules/nf-core/picard/crea
 // Info required for completion email and summary
 def multiqc_report = []
 
-workflow TARGET_METHYLSEQ_QC {
+workflow PICARD_PROFILER {
 
 // sampleName,bam,bai
 
