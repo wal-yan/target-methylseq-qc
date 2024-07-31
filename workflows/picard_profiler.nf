@@ -121,7 +121,7 @@ workflow PICARD_PROFILER {
        PICARD_CREATESEQUENCEDICTIONARY.out.reference_fasta,
        PICARD_CREATESEQUENCEDICTIONARY.out.reference_fai,
        PICARD_CREATESEQUENCEDICTIONARY.out.reference_dict,
-       params.bed
+       params.ref_bed
     )
     ch_versions = ch_versions.mix(PICARD_COLLECTHSMETRICS.out.versions.first())
 
