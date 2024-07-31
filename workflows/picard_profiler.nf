@@ -73,8 +73,8 @@ workflow TARGET_METHYLSEQ_QC {
 
     //NOTE: Mock channel to check existance of different param files. FAI is not checked since it's optional
     Channel.of([file(params.input, checkIfExists:true),
-                file(params.fasta, checkIfExists:true),
-                file(params.bed, checkIfExists:true)])
+                file(params.ref_fasta, checkIfExists:true),
+                file(params.ref_bed, checkIfExists:true)])
 
     //
     // SUBWORKFLOW: Read in samplesheet, validate and stage input files
@@ -99,7 +99,7 @@ workflow TARGET_METHYLSEQ_QC {
     ch_versions = ch_versions.mix(FASTQC.out.versions.first())
 
 
-    if(!params.fai) {
+    if(!params.ref_fai) {
 
         SAMTOOLS_FAIDX([[id: 'ref'], params.fasta], [[],[]])
 
