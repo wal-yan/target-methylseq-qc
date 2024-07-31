@@ -13,7 +13,7 @@ def summary_params = paramsSummaryMap(workflow)
 // Print parameter summary log to screen
 log.info logo + paramsSummaryLog(workflow) + citation
 
-WorkflowPicard_profiler.initialise(params, log)
+WorkflowTarget_methylseq_qc.initialise(params, log)
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -140,10 +140,10 @@ workflow TARGET_METHYLSEQ_QC {
     //
     // MODULE: MultiQC
     //
-    workflow_summary    = WorkflowPicard_profiler.paramsSummaryMultiqc(workflow, summary_params)
+    workflow_summary    = WorkflowTarget_methylseq_qc.paramsSummaryMultiqc(workflow, summary_params)
     ch_workflow_summary = Channel.value(workflow_summary)
 
-    methods_description    = WorkflowPicard_profiler.methodsDescriptionText(workflow, ch_multiqc_custom_methods_description, params)
+    methods_description    = WorkflowTarget_methylseq_qc.methodsDescriptionText(workflow, ch_multiqc_custom_methods_description, params)
     ch_methods_description = Channel.value(methods_description)
 
     ch_multiqc_files = Channel.empty()
