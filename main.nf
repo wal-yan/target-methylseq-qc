@@ -41,7 +41,7 @@ WorkflowMain.initialise(workflow, params, log)
 */
 
 
-include { BED_FILTER      } from './workflows/picard_profiler'
+include { BED_FILTER      } from './workflows/bed_filter'
 include { PICARD_PROFILER } from './workflows/picard_profiler'
 
 //
