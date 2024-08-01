@@ -50,7 +50,7 @@ include { FASTQC                      } from '../modules/nf-core/fastqc/main'
 include { MULTIQC                     } from '../modules/nf-core/multiqc/main'
 include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoftwareversions/main'
 
-include { BEDTOOLS_INTERSECT } from './modules/nf-core/bedtools/intersect/main'
+include { BEDTOOLS_INTERSECT          } from '../modules/nf-core/bedtools/intersect/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -85,7 +85,7 @@ workflow BED_FILTER {
             }
 
 
-        BED_FILTER (ch_in_bedtools, params.ref_bed)
+        BED_INTERSECT (ch_in_bedtools, params.ref_bed)
 
 
     //
