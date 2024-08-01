@@ -73,16 +73,16 @@ workflow BED_FILTER {
                 file(params.ref_bed, checkIfExists:true)])
 
 
-        ch_in_bedtools = Channel.fromPath( params.input )
-            .splitCsv(header: false, skip: 1)
-            .map{ row ->
-                {
-                    sampleName          = row[0]
-                    bedGraphFile        = row[1]
+    ch_in_bedtools = Channel.fromPath( params.input )
+        .splitCsv(header: false, skip: 1)
+        .map{ row ->
+            {
+                sampleName          = row[0]
+                bedGraphFile        = row[1]
 
-                    return tuple([id:sampleName], file(bedGraphFile, checkIfExists: true))
-                }
+                return tuple([id:sampleName], file(bedGraphFile, checkIfExists: true))
             }
+        }
 
 
     BEDTOOLS_INTERSECT (ch_in_bedtools, params.ref_bed)
@@ -119,7 +119,7 @@ workflow BED_FILTER {
     ch_multiqc_files = ch_multiqc_files.mix(CUSTOM_DUMPSOFTWAREVERSIONS.out.mqc_yml.collect())
 
     ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]}.ifEmpty([]))
-    ch_multiqc_files = ch_multiqc_files.mix(BEDTOOLS_INTERSECT.out.metrics.collect{it[1]}.ifEmpty([]))
+    ch_multiqc_files = ch_multiqc_files.mix(BEDTOOLS_INTERSECT.out.intersect.collect{it[1]}.ifEmpty([]))
 
     MULTIQC (
         ch_multiqc_files.collect(),
