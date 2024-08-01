@@ -85,7 +85,8 @@ workflow BED_FILTER {
             }
 
 
-        BEDTOOLS_INTERSECT (ch_in_bedtools, params.ref_bed)
+    BEDTOOLS_INTERSECT (ch_in_bedtools, params.ref_bed)
+    ch_versions = ch_versions.mix(BEDTOOLS_INTERSECT.out.versions.first())
 
 
     //
@@ -118,8 +119,7 @@ workflow BED_FILTER {
     ch_multiqc_files = ch_multiqc_files.mix(CUSTOM_DUMPSOFTWAREVERSIONS.out.mqc_yml.collect())
 
     ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]}.ifEmpty([]))
-    ch_multiqc_files = ch_multiqc_files.mix(PICARD_COLLECTMULTIPLEMETRICS.out.metrics.collect{it[1]}.ifEmpty([]))
-    ch_multiqc_files = ch_multiqc_files.mix(PICARD_COLLECTHSMETRICS.out.metrics.collect{it[1]}.ifEmpty([]))
+    ch_multiqc_files = ch_multiqc_files.mix(BEDTOOLS_INTERSECT.out.metrics.collect{it[1]}.ifEmpty([]))
 
     MULTIQC (
         ch_multiqc_files.collect(),
