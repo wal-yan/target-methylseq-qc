@@ -53,7 +53,7 @@ workflow TARGET_METHYLSEQ_QC {
         PICARD_PROFILER ()
 
     } else if (params.bed_filter) {
-        ch_in_bedtools = Channel.fromPath( params.samplesheet )
+        ch_in_bedtools = Channel.fromPath( params.input )
             .splitCsv(header: false, skip: 1)
             .map{ row ->
                 {
