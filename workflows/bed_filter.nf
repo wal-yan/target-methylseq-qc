@@ -46,7 +46,6 @@ include { INPUT_CHECK } from '../subworkflows/local/input_check'
 //
 // MODULE: Installed directly from nf-core/modules
 //
-include { FASTQC                      } from '../modules/nf-core/fastqc/main'
 include { MULTIQC                     } from '../modules/nf-core/multiqc/main'
 include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoftwareversions/main'
 
@@ -89,16 +88,6 @@ workflow BED_FILTER {
     ch_versions = ch_versions.mix(BEDTOOLS_INTERSECT.out.versions.first())
 
 
-    //
-    // MODULE: Run FastQC
-    //
-    ch_in_fastqc = ch_in_bedtools
-
-    FASTQC (
-        ch_in_fastqc
-    )
-    ch_versions = ch_versions.mix(FASTQC.out.versions.first())
-
 
     CUSTOM_DUMPSOFTWAREVERSIONS (
         ch_versions.unique().collectFile(name: 'collated_versions.yml')
@@ -118,7 +107,6 @@ workflow BED_FILTER {
     ch_multiqc_files = ch_multiqc_files.mix(ch_methods_description.collectFile(name: 'methods_description_mqc.yaml'))
     ch_multiqc_files = ch_multiqc_files.mix(CUSTOM_DUMPSOFTWAREVERSIONS.out.mqc_yml.collect())
 
-    ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]}.ifEmpty([]))
     ch_multiqc_files = ch_multiqc_files.mix(BEDTOOLS_INTERSECT.out.intersect.collect{it[1]}.ifEmpty([]))
 
     MULTIQC (
