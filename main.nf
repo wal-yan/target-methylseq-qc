@@ -41,8 +41,7 @@ WorkflowMain.initialise(workflow, params, log)
 */
 
 
-include { BEDTOOLS_INTERSECT as BED_FILTER } from './modules/nf-core/bedtools/intersect/main'
-
+include { BED_FILTER      } from './workflows/picard_profiler'
 include { PICARD_PROFILER } from './workflows/picard_profiler'
 
 //
@@ -53,18 +52,7 @@ workflow TARGET_METHYLSEQ_QC {
         PICARD_PROFILER ()
 
     } else if (params.bed_filter) {
-        ch_in_bedtools = Channel.fromPath( params.input )
-            .splitCsv(header: false, skip: 1)
-            .map{ row ->
-                {
-                    sampleName          = row[0]
-                    bedGraphFile        = row[1]
-
-                    return tuple([id:sampleName], file(bedGraphFile, checkIfExists: true))
-                }
-            }
-
-        BED_FILTER (ch_in_bedtools, params.ref_bed)
+        BED_FILTER ()
 
     } else {
         log.info "Available options are --bed_filter OR --picard_profiler"
