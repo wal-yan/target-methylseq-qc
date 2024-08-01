@@ -85,7 +85,7 @@ workflow BED_FILTER {
             }
 
 
-        BED_INTERSECT (ch_in_bedtools, params.ref_bed)
+        BEDTOOLS_INTERSECT (ch_in_bedtools, params.ref_bed)
 
 
     //
