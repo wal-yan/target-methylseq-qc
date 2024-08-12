@@ -1,9 +1,9 @@
 #!/usr/bin/env nextflow
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    wal-yan/picard-profiler
+    wal-yan/target-methylseq-qc
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    Github : https://github.com/wal-yan/picard-profiler
+    Github : https://github.com/wal-yan/target-methylseq-qc
 ----------------------------------------------------------------------------------------
 */
 
@@ -33,19 +33,31 @@ if (params.validate_params) {
 
 WorkflowMain.initialise(workflow, params, log)
 
+
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     NAMED WORKFLOW FOR PIPELINE
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
+
+include { BED_FILTER      } from './workflows/bed_filter'
 include { PICARD_PROFILER } from './workflows/picard_profiler'
 
 //
-// WORKFLOW: Run main wal-yan/picard-profiler analysis pipeline
+// WORKFLOW: Run main wal-yan/target-methylseq-qc analysis pipeline
 //
-workflow WAL_YAN {
-    PICARD_PROFILER ()
+workflow TARGET_METHYLSEQ_QC {
+    if(params.picard_profiler) {
+        PICARD_PROFILER ()
+
+    } else if (params.bed_filter) {
+        BED_FILTER ()
+
+    } else {
+        log.info "Available options are --bed_filter OR --picard_profiler"
+        System.exit(0)
+    }
 }
 
 /*
@@ -59,7 +71,7 @@ workflow WAL_YAN {
 // See: https://github.com/nf-core/rnaseq/issues/619
 //
 workflow {
-    WAL_YAN ()
+    TARGET_METHYLSEQ_QC ()
 }
 
 /*

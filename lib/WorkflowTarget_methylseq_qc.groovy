@@ -1,11 +1,11 @@
 //
-// This file holds several functions specific to the workflow/picard-profiler.nf in the wal-yan/picard-profiler pipeline
+// This file holds several functions specific to the workflow/target-methylseq-qc.nf in the wal-yan/target-methylseq-qc pipeline
 //
 
 import nextflow.Nextflow
 import groovy.text.SimpleTemplateEngine
 
-class WorkflowPicard_profiler {
+class WorkflowTarget_methylseq_qc {
 
     //
     // Check and validate parameters
@@ -13,7 +13,7 @@ class WorkflowPicard_profiler {
     public static void initialise(params, log) {
 
 
-        if (!params.fasta) {
+        if (!params.ref_fasta) {
             Nextflow.error "Genome fasta file not specified with e.g. '--fasta genome.fa' or via a detectable config file."
         }
     }

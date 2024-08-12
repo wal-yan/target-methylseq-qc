@@ -1,5 +1,5 @@
 //
-// This file holds several functions specific to the main.nf workflow in the wal-yan/picard-profiler pipeline
+// This file holds several functions specific to the main.nf workflow in the wal-yan/target-methylseq-qc pipeline
 //
 
 import nextflow.Nextflow
@@ -50,12 +50,12 @@ class WorkflowMain {
         }
 
         // Check input has been provided
-        if (!params.fasta) {
+        if (!params.ref_fasta) {
             Nextflow.error("Please provide a reference fasta to the pipeline e.g. '--fasta reference.fa'")
         }
 
         // Check input has been provided
-        if (!params.bed) {
+        if (!params.ref_bed) {
             Nextflow.error("Please provide bed file to the pipeline e.g. '--bed custom.bed'")
         }
     }

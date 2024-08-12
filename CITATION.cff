@@ -17,8 +17,8 @@ authors:
 - family-names: "Agudelo-Romero"
   given-names: "Patricia"
   orcid: "https://orcid.org/0000-0002-3703-4111"
-title: "wal-yan/picard-profiler"
+title: "wal-yan/target-methylseq-qc"
 version: 1.0.0
 #doi: 10.5281/zenodo.1234
 date-released: 2023-08-10
-url: "https://github.com/wal-yan/picard-profiler"
+url: "https://github.com/wal-yan/target-methylseq-qc"

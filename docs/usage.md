@@ -1,4 +1,4 @@
-# wal-yan/picard-profiler: Usage
+# wal-yan/target-methylseq-qc: Usage
 
 > _Documentation of pipeline parameters is generated automatically from the pipeline schema and can no longer be found in markdown files._
 
@@ -11,51 +11,36 @@
 You will need to create a samplesheet with information about the samples you would like to analyse before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row as shown in the examples below.
 
 ```bash
---input '[path to samplesheet file]'
-```
-
-### Multiple runs of the same sample
-
-The `sample` identifiers have to be the same when you have re-sequenced the same sample more than once e.g. to increase sequencing depth. The pipeline will concatenate the raw reads before performing any downstream analysis. Below is an example for the same sample sequenced across 3 lanes:
-
-```console
-sample,fastq_1,fastq_2
-CONTROL_REP1,AEG588A1_S1_L002_R1_001.fastq.gz,AEG588A1_S1_L002_R2_001.fastq.gz
-CONTROL_REP1,AEG588A1_S1_L003_R1_001.fastq.gz,AEG588A1_S1_L003_R2_001.fastq.gz
-CONTROL_REP1,AEG588A1_S1_L004_R1_001.fastq.gz,AEG588A1_S1_L004_R2_001.fastq.gz
+--samplesheet '[path to samplesheet file]'
 ```
 
 ### Full samplesheet
 
-The pipeline will auto-detect whether a sample is single- or paired-end using the information provided in the samplesheet. The samplesheet can have as many columns as you desire, however, there is a strict requirement for the first 3 columns to match those defined in the table below.
+The pipeline requires the use of the compressed alignment files bam and bai, output from the nfcore/methylseq pipeline. The samplesheet requires three columns, which must follow the order given below.
 
-A final samplesheet file consisting of both single- and paired-end data may look something like the one below. This is for 6 samples, where `TREATMENT_REP3` has been sequenced twice.
 
 ```console
-sample,fastq_1,fastq_2
-CONTROL_REP1,AEG588A1_S1_L002_R1_001.fastq.gz,AEG588A1_S1_L002_R2_001.fastq.gz
-CONTROL_REP2,AEG588A2_S2_L002_R1_001.fastq.gz,AEG588A2_S2_L002_R2_001.fastq.gz
-CONTROL_REP3,AEG588A3_S3_L002_R1_001.fastq.gz,AEG588A3_S3_L002_R2_001.fastq.gz
-TREATMENT_REP1,AEG588A4_S4_L003_R1_001.fastq.gz,
-TREATMENT_REP2,AEG588A5_S5_L003_R1_001.fastq.gz,
-TREATMENT_REP3,AEG588A6_S6_L003_R1_001.fastq.gz,
-TREATMENT_REP3,AEG588A6_S6_L004_R1_001.fastq.gz,
+sample,bai,bam
+CONTROL_REP1,AEG588A1_S1_L002_R1_001.markdup.sorted.bam.bai,AEG588A1_S1_L002_R2_001.markdup.sorted.bam
+CONTROL_REP2,AEG588A2_S2_L002_R1_001.markdup.sorted.bam.bai,AEG588A2_S2_L002_R2_001.markdup.sorted.bam
+CONTROL_REP3,AEG588A3_S3_L002_R1_001.markdup.sorted.bam.bai,AEG588A3_S3_L002_R2_001.markdup.sorted.bam
+
 ```
 
 | Column    | Description                                                                                                                                                                            |
 | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `sample`  | Custom sample name. This entry will be identical for multiple sequencing libraries/runs from the same sample. Spaces in sample names are automatically converted to underscores (`_`). |
-| `fastq_1` | Full path to FastQ file for Illumina short reads 1. File has to be gzipped and have the extension ".fastq.gz" or ".fq.gz".                                                             |
-| `fastq_2` | Full path to FastQ file for Illumina short reads 2. File has to be gzipped and have the extension ".fastq.gz" or ".fq.gz".                                                             |
+| `sample`  | Custom sample name. This entry will be identical for multiple sequencing libraries/runs from the same sample. Spaces in sample names are automatically converted to underscores (`_`) `## is converting spaces to _ true in picard case? ##`. |
+| `bai` | Full path to bai file for sample. File must be those that are "mark duplicate alignments" in sorted files from previous methylseq runs.                                                              |
+| `bam` | Full path to bam file for sample. File must be those that are "mark duplicate alignments" in sorted files from previous methylseq runs.                                                             |
 
-An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
+An [example samplesheet](../assets/test_samplesheet.csv) has been provided with the pipeline.
 
 ## Running the pipeline
 
-The typical command for running the pipeline is as follows:
+The command for running the pipeline is as follows:
 
 ```bash
-nextflow run wal-yan/picard-profiler --input ./samplesheet.csv --outdir ./results --genome GRCh37 -profile docker
+nextflow run https://github.com/wal-yan/bed-filter --samplesheet /path/to/samplesheet.csv --bed /data/Twist_met/Twist_Methylome/bundle_reference_files/covered_targets_Twist_Methylome_hg38_annotated_collapsed.bed -profile docker
 ```
 
 This will launch the pipeline with the `docker` configuration profile. See below for more information about profiles.
@@ -68,6 +53,7 @@ work                # Directory containing the nextflow working files
 .nextflow_log       # Log file from Nextflow
 # Other nextflow hidden files, eg. history of pipeline runs and old logs.
 ```
+### Unsure whether this section is a generalisation and should stay as is?
 
 If you wish to repeatedly use the same parameters for multiple runs, rather than specifying each flag in the command, you can specify these in a params file.
 
@@ -78,7 +64,7 @@ Pipeline settings can be provided in a `yaml` or `json` file via `-params-file <
 The above pipeline run specified with a params file in yaml format:
 
 ```bash
-nextflow run wal-yan/picard-profiler -profile docker -params-file params.yaml
+nextflow run wal-yan/target-methylseq-qc -profile docker -params-file params.yaml
 ```
 
 with `params.yaml` containing:
@@ -97,14 +83,14 @@ You can also generate such `YAML`/`JSON` files via [nf-core/launch](https://nf-c
 When you run the above command, Nextflow automatically pulls the pipeline code from GitHub and stores it as a cached version. When running the pipeline after this, it will always use the cached version if available - even if the pipeline has been updated since. To make sure that you're running the latest version of the pipeline, make sure that you regularly update the cached version of the pipeline:
 
 ```bash
-nextflow pull wal-yan/picard-profiler
+nextflow pull wal-yan/target-methylseq-qc
 ```
 
 ### Reproducibility
 
 It is a good idea to specify a pipeline version when running the pipeline on your data. This ensures that a specific version of the pipeline code and software are used when you run your pipeline. If you keep using the same tag, you'll be running the same version of the pipeline, even if there have been changes to the code since.
 
-First, go to the [wal-yan/picard-profiler releases page](https://github.com/wal-yan/picard-profiler/releases) and find the latest pipeline version - numeric only (eg. `1.3.1`). Then specify this when running the pipeline with `-r` (one hyphen) - eg. `-r 1.3.1`. Of course, you can switch to another version by changing the number after the `-r` flag.
+First, go to the [wal-yan/target-methylseq-qc releases page](https://github.com/wal-yan/target-methylseq-qc/releases) and find the latest pipeline version - numeric only (eg. `1.3.1`). Then specify this when running the pipeline with `-r` (one hyphen) - eg. `-r 1.3.1`. Of course, you can switch to another version by changing the number after the `-r` flag.
 
 This version number will be logged in reports when you run the pipeline, so that you'll know what you used when you look back in the future. For example, at the bottom of the MultiQC reports.
 
@@ -112,7 +98,7 @@ To further assist in reproducbility, you can use share and re-use [parameter fil
 
 > 💡 If you wish to share such profile (such as upload as supplementary material for academic publications), make sure to NOT include cluster specific paths to files, nor institutional specific profiles.
 
-## Core Nextflow arguments
+## Core Nextflow arguments 
 
 > **NB:** These options are part of Nextflow and use a _single_ hyphen (pipeline parameters use a double-hyphen).
 
