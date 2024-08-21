@@ -1,5 +1,5 @@
 ---
-title: 'target-methylseq-qc: a lightweight pipeline for collecting Picard metrics from targeted sequence mapping files.'
+title: 'target-methylseq-qc: a lightweight pipeline for collecting metrics from targeted sequence mapping files.'
 tags:
   - nextflow
   - pipeline
