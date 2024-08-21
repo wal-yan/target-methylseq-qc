@@ -1,4 +1,4 @@
-# wal-yan/target-methylseq-qc: Usage
+# Usage
 
 > _Documentation of pipeline parameters is generated automatically from the pipeline schema and can no longer be found in markdown files._
 
@@ -98,7 +98,7 @@ To further assist in reproducbility, you can use share and re-use [parameter fil
 
 > 💡 If you wish to share such profile (such as upload as supplementary material for academic publications), make sure to NOT include cluster specific paths to files, nor institutional specific profiles.
 
-## Core Nextflow arguments 
+## Core Nextflow arguments
 
 > **NB:** These options are part of Nextflow and use a _single_ hyphen (pipeline parameters use a double-hyphen).
 
