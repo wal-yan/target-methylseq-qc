@@ -78,8 +78,7 @@
             "properties": {
                 "picard_profiler": {
                     "type": "boolean",
-                    "description": "Enable to use the picard_profile mode of the pipeline (default)",
-                    "default": true
+                    "description": "Enable to use the picard_profile mode of the pipeline (default)"
                 },
                 "bed_filter": {
                     "type": "boolean",
