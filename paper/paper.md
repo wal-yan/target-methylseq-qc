@@ -57,7 +57,7 @@ bibliography: paper.bib
 
 
 Next-generation targeted genome sequencing offers the opportunity to analyse regions of interest within a genome.
-While it is possible to incorporate targeted sequencing into whole-genome sequencing (WGS) pipelines, there remains a gap in accurately converting WGS metrics into precise target metrics. Here, we introduce the target-methylseq-qc pipeline (https://doi.org/10.5281/zenodo.8251379 ), designed to (i) collects metrics from alignment files generated in targeted-methylation sequence analysis and (ii) filtering `bedGraph` for features overlapping with the reference BED file, both of these subworkflows are written using Nextflow [@di_tommaso_nextflow_2017] workflow language.
+While it is possible to incorporate targeted sequencing into whole-genome sequencing (WGS) pipelines, there remains a gap in accurately converting WGS metrics into precise target metrics. Here, we introduce the target-methylseq-qc pipeline [@targetmethylseqqc] , designed to (i) collects metrics from alignment files generated in targeted-methylation sequence analysis and (ii) filtering `bedGraph` for features overlapping with the reference BED file, both of these subworkflows are written using Nextflow [@di_tommaso_nextflow_2017] workflow language.
 
 target-methylseq-qc, when used in the `picard-profiler` mode accepts inputs in various alignment formats, including SAM, BAM and CRAM files [@hts_spec].
 Additionally, to refine the metrics to the target regions the inclusion of a FASTA reference file and BED intervals file is required.
@@ -67,7 +67,7 @@ The `picard_profiler` mode of the pipeline integrates Picard metrics from GATK p
 
 Regardless of the usage mode of the pipeline, the final MultiQC report automatically collates the relevant reports from FastQC [@andrews_fastqc_2010], Bedtool and Picard tools in an HTML document, which could be shared with collaborators or added as supplementary material in publications.
 
-target-methylseq-qc is a portable pipeline compatible with multiple platforms, such as local laptop or workstation machines, high-performance computing environments and cloud infrastructure. Although target-methylseq-qc was originally created for calculating coverage in target sequencing as a follow-up step to the nf-core/methylseq pipeline, within the Airway Epithelium Respiratory Illnesses and Allergy (AERIAL) paediatric cohort study[@kicic-starcevich_airway_2023]; its versatility allows for extending its application to other sequencing panels from various next-generation methods.
+target-methylseq-qc is a portable pipeline compatible with multiple platforms, such as local laptop or workstation machines, high-performance computing environments and cloud infrastructure. Although target-methylseq-qc was originally created for calculating coverage in target sequencing as a follow-up step to the nf-core/methylseq pipeline [@methylseq], within the Airway Epithelium Respiratory Illnesses and Allergy (AERIAL) paediatric cohort study [@kicic-starcevich_airway_2023]; its versatility allows for extending its application to other sequencing panels from various next-generation methods.
 
 
 # Design principles and capabilities
@@ -82,9 +82,46 @@ The use of the nf-core template facilitates in keeping the design of the pipelin
 
 In addition to the base workflow as mentioned in \autoref{fig:subway-map}, the pipeline also includes optional picard/createsequencedictionary [@picard_createsequencedictionary_2022] and Samtools modules to aid users in automatically generating the required genome dictionary (DICT) file, in case they have only the reference FASTA and BED files but intend to use the pipeline. Furthermore, depending on the quality check requirements by the users, we have enabled the metrics collection for 10x, 20x, 30x and 50x coverage.
 
-# Input and output
+## Pre-requisites
 
-As standard input in the Nextflow pipelines, target-methylseq-qc expects a CSV samplesheet as an input with the following fields.
+To ensure proper operation of the target-methylseq-qc pipeline, three dependencies must be available in the execution environment: `Java` (LTS > 11), `Nextflow` (> 24.04), and a package manager such as `conda` [@bioconda] or a container system  such as `docker` or `singularity` [@biocontainer].
+
+ Getting started with the pipeline setup is straightforward given that (i) `Java` (LTS > 11)  (ii) `Nextflow` (> 24.04) and (iii) a package manager (e.g. `conda`) or a container system (e.g. `docker` or `singularity`) are available in the execution environment. The in-built test profile from the pipeline can then be used to execute the profile on the relevant infrastructure with some test dataset.
+
+
+
+## Pipeline installation
+
+target-methylseq-qc pipeline can be downloaded from the GitHub code repository using git command line tool or directly through using Nextflow command line tool using either of the following commands
+
+
+```bash
+# Git based download
+$ git clone github https://github.com/wal-yan/target-methylseq-qc
+
+# Nextflow based download
+$ nextflow pull https://github.com/wal-yan/target-methylseq-qc
+
+```
+
+## Test profile
+
+One in-built test profile is available in target-methylseq-qc pipeline. This profile can be used to run tests on the relevant infrastructure using the bundled test datasets, helping users identify and resolved any issue before the analysis stage.
+
+
+```bash
+
+# picard_profiler mode
+$ nextflow run wal-yan/target-methylseq-qc -profile test,docker –picard_profiler –outdir test
+
+
+# bed_filter mode
+$ nextflow run wal-yan/target-methylseq-qc -profile test,docker --bed_filter –outdir test
+```
+
+# Input
+
+Following the convention for standard input in the Nextflow pipelines, target-methylseq-qc expects a CSV samplesheet as an input with the following fields.
 
 :An example of a samplesheet for target-methylseq-qc in `picard-profiler` mode containing three columns, capturing the (i) name of the sample (ii) path to BAM index file and (iii) path to the BAM file. []{label="samplesheet-1"}
 
@@ -100,23 +137,26 @@ Whereas the `bed_filter` mode requires a different set of columns in the input s
 | sample-01 | /path/to/sample-01.bedGraph |
 | sample-02 | /path/to/sample-02.bedGraph |
 
+# Execution
 
-The pipeline initialization step, as per the best practices of the nf-core template, checks the validity of the file paths specified to be either a POSIX compliant file system or a cloud object storage path for files storaged in AWS S3, Azure Blob Storage or Google Cloud Storage buckets. Upon completion, the pipeline generates a MultiQC file with the relevant results of the analysis \autoref{fig:multiqc}.
+The parameters needed to run target-methylseq-qc depends on the mode. The figure below are examples on how to run the pipeline using (i) picard-profiler and (ii) bed_filter. The complete list of the parameters included in the pipeline is summarised in Table 3.
+
+
+
+
+
+The pipeline initialization step, as per the best practices of the nf-core template, checks the validity of the file paths specified to be either a POSIX compliant file system or a cloud object storage path for files storaged in AWS S3, Azure Blob Storage or Google Cloud Storage buckets.
+
+# Output
+
+Upon completion, the pipeline generates a MultiQC file with the relevant results of the analysis \autoref{fig:multiqc}.
 
 ![MultiQC report generated for target-methylseq-qc, in `picard-profiler` highlighting the refine metrics from targeted sequencing at 10X, 20X, 30X and 50X coverage.\label{fig:multiqc}](multiqc.tiff)
 
 
 # Tutorials and documentation
 
-The steps needed to configure the pipeline inputs and configuration for your infrastructure are available in the documentation within the Github repository itself. Getting started with the pipeline setup is straightforward given that (i) `Java` (LTS > 11)  (ii) `Nextflow` (> 24.04) and (iii) a package manager (e.g. `conda`) or a container system (e.g. `docker` or `singularity`) are available in the execution environment. The in-built test profile from the pipeline can then be used to execute the profile on the relevant infrastructure with some test dataset.
-
-
-```bash
-
-$ nextflow run wal-yan/target-methylseq-qc -profile test,docker --picard_profiler –outdir test_results
-
-$ nextflow run wal-yan/target-methylseq-qc -profile test,docker --bed_filter –outdir test_results
-```
+The steps needed to configure the pipeline inputs and configuration for the relevant infrastructure are available in the documentation within the Github repository as well as a dedicated documentation website [@targetmethylseqqc_website] .
 
 # Funding Statement
 This work was supported by the National Health and Medical Research Council of Australia (NHMRC115648).

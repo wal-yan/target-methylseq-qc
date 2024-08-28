@@ -57,6 +57,33 @@
                     "description": "Path to FASTA genome file.",
                     "help_text": "This parameter is *mandatory* if `--genome` is not specified. If you don't have a BWA index available this will be generated for you automatically. Combine with `--save_reference` to save BWA index for future runs.",
                     "fa_icon": "far fa-file-code"
+                },
+                "ref_fai": {
+                    "type": "string",
+                    "description": "Path to the FASTA index file."
+                },
+                "ref_bed": {
+                    "type": "string",
+                    "description": "Path to the BED file for the reference panel."
+                }
+            },
+            "required": ["ref_fasta", "ref_bed"]
+        },
+        "execution_mode": {
+            "title": "Execution mode",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-adjust",
+            "properties": {
+                "picard_profiler": {
+                    "type": "boolean",
+                    "description": "Enable to use the picard_profile mode of the pipeline (default)",
+                    "default": true
+                },
+                "bed_filter": {
+                    "type": "boolean",
+                    "description": "Enable to use the bed_filter mode of the pipeline"
                 }
             }
         },
@@ -263,6 +290,9 @@
             "$ref": "#/definitions/reference_genome_options"
         },
         {
+            "$ref": "#/definitions/execution_mode"
+        },
+        {
             "$ref": "#/definitions/institutional_config_options"
         },
         {
@@ -271,15 +301,5 @@
         {
             "$ref": "#/definitions/generic_options"
         }
-    ],
-    "properties": {
-        "ref_fai": {
-            "type": "string",
-            "default": null
-        },
-        "ref_bed": {
-            "type": "string",
-            "default": null
-        }
-    }
+    ]
 }
