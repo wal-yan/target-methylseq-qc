@@ -49,14 +49,5 @@ class WorkflowMain {
             Nextflow.error("Please provide an input samplesheet to the pipeline e.g. '--input samplesheet.csv'")
         }
 
-        // Check input has been provided
-        if (!params.ref_fasta && params.picard_profiler) {
-            Nextflow.error("Please provide a reference fasta to the pipeline e.g. '--fasta reference.fa'")
-        }
-
-        // Check input has been provided
-        if (!params.ref_bed && params.bed_filter) {
-            Nextflow.error("Please provide bed file to the pipeline e.g. '--bed custom.bed'")
-        }
     }
 }
