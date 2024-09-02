@@ -129,10 +129,10 @@ Following the convention for standard input in the Nextflow pipelines, target-me
 
 :An example of a samplesheet for target-methylseq-qc in `picard-profiler` mode containing three columns, capturing the (i) name of the sample (ii) path to BAM index file and (iii) path to the BAM file. []{label="samplesheet-1"}
 
-| sample    | bai                    | bam                        |
+| sample    | bam                    | bai                        |
 |-----------|------------------------|----------------------------|
-| sample-01 | /path/to/sample-01.bai | /path/to/sample-01.bam     |
-| sample-02 | /path/to/sample-02.bai | /path/to/sample-02.bam     |
+| sample-01 | /path/to/sample-01.bam | /path/to/sample-01.bai     |
+| sample-02 | /path/to/sample-02.bam | /path/to/sample-02.bai     |
 
 Whereas the `bed_filter` mode requires a different set of columns in the input samplesheet CSV file, as shown in Table []{label="samplesheet-2"}
 
