@@ -68,7 +68,6 @@ workflow BED_FILTER {
 
     //NOTE: Mock channel to check existance of different param files. FAI is not checked since it's optional
     Channel.of([file(params.input, checkIfExists:true),
-                file(params.ref_fasta, checkIfExists:true),
                 file(params.ref_bed, checkIfExists:true)])
 
 
