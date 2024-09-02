@@ -112,11 +112,15 @@ One in-built test profile is available in target-methylseq-qc pipeline. This pro
 ```bash
 
 # picard_profiler mode
-$ nextflow run wal-yan/target-methylseq-qc -profile test,docker –picard_profiler –outdir test
+$ nextflow run wal-yan/target-methylseq-qc \
+  -profile test,docker \
+  -–picard_profiler
 
 
 # bed_filter mode
-$ nextflow run wal-yan/target-methylseq-qc -profile test,docker --bed_filter –outdir test
+$ nextflow run wal-yan/target-methylseq-qc \
+  -profile test,docker \
+  --bed_filter \
 ```
 
 # Input
@@ -130,7 +134,7 @@ Following the convention for standard input in the Nextflow pipelines, target-me
 | sample-01 | /path/to/sample-01.bai | /path/to/sample-01.bam     |
 | sample-02 | /path/to/sample-02.bai | /path/to/sample-02.bam     |
 
-Whereas the `bed_filter` mode requires a different set of columns in the input samplesheet CSV file, as shown in table []{label="samplesheet-2"}
+Whereas the `bed_filter` mode requires a different set of columns in the input samplesheet CSV file, as shown in Table []{label="samplesheet-2"}
 
 | sample    | bedGraph                    |
 |-----------|-----------------------------|
@@ -139,17 +143,37 @@ Whereas the `bed_filter` mode requires a different set of columns in the input s
 
 # Execution
 
-The parameters needed to run target-methylseq-qc depends on the mode. The figure below are examples on how to run the pipeline using (i) picard-profiler and (ii) bed_filter. The complete list of the parameters included in the pipeline is summarised in Table 3.
-
-
-
-
 
 The pipeline initialization step, as per the best practices of the nf-core template, checks the validity of the file paths specified to be either a POSIX compliant file system or a cloud object storage path for files storaged in AWS S3, Azure Blob Storage or Google Cloud Storage buckets.
+
+The behaviour of the pipeline can be controlled through the pipeline parameters which are divided into different groups such as (i) Execution Mode, (ii) Input/Output Options (iii) Reference Genome Options in addition to the generic parameters inherited from the nf-core template such as (i) Max job request options (ii) Generic options and (iii) Institutional config options. A complete list of the parameters specific to target-methylseq-qc pipeline are summarised in Table []{label="parameters"}.
+
+| Parameter Name  | Description                                                                              |
+|-----------------|------------------------------------------------------------------------------------------|
+| picard_profiler | Enable this boolean option to use the picard_profiler subworkflow                        |
+| bed_filter      | Enable this boolean option to use the bed_filter subworkflow                             |
+| input           | Path to comma-separated file containing information about the samples in the experiment. |
+| outdir          | The output directory where the results will be saved.                                    |
+| ref_fasta       | Path to FASTA genome file.                                                               |
+| ref_fai         | Path to the FASTA index file.                                                            |
+| ref_bed         | Path to the BED file for the reference panel.                                            |
+
+
 
 # Output
 
 Upon completion, the pipeline generates a MultiQC file with the relevant results of the analysis \autoref{fig:multiqc}.
+
+Upon completion, the two subworkflows generate different outputs which are presented together in the MultiQC file. For picard_profile mode, a MultiQC file is produced, providing the relevant results related to the coverage metrics (Figure 2A). For the bed_filter mode mode, a BED file is generated with the methylation positions filtered based on the BED intervals file from the targeted methylation profile (Figure 2B).
+
+
+TODO: Output directory structure, for further information we recommend the documentation page.
+
+
+Figure 2: Examples of the target-methylseq-qc pipeline modes. (A) MultiQC report generated for picard-profiler mode, highlighting refined metrics from targeted sequencing at 10X, 20X, 30X and 50X coverage. (B) Filtered BED file produced after run Bed_profiler mode.
+
+
+TODO: Add the image  for bed-filter MultiQC output, highlight the content of MultiQC
 
 ![MultiQC report generated for target-methylseq-qc, in `picard-profiler` highlighting the refine metrics from targeted sequencing at 10X, 20X, 30X and 50X coverage.\label{fig:multiqc}](multiqc.tiff)
 
