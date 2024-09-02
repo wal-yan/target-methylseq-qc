@@ -106,28 +106,26 @@ $ nextflow pull https://github.com/wal-yan/target-methylseq-qc
 
 ## Test profile
 
-One in-built test profile is available in target-methylseq-qc pipeline. This profile can be used to run tests on the relevant infrastructure using the bundled test datasets, helping users identify and resolved any issue before the analysis stage.
+Two built-in test profiles are available in target-methylseq-qc pipeline for each mode of execution. These profiles can be used to run tests on the relevant infrastructure using the bundled test datasets [@test_dataset], helping users to identify and resolve any infrastructural issue before the analysis stage.
 
 
 ```bash
 
 # picard_profiler mode
 $ nextflow run wal-yan/target-methylseq-qc \
-  -profile test,docker \
-  -–picard_profiler
+  -profile test_picard_profiler,docker
 
 
 # bed_filter mode
 $ nextflow run wal-yan/target-methylseq-qc \
-  -profile test,docker \
-  --bed_filter \
+  -profile test_bed_filter,docker
 ```
 
 # Input
 
 Following the convention for standard input in the Nextflow pipelines, target-methylseq-qc expects a CSV samplesheet as an input with the following fields.
 
-:An example of a samplesheet for target-methylseq-qc in `picard-profiler` mode containing three columns, capturing the (i) name of the sample (ii) path to BAM index file and (iii) path to the BAM file. []{label="samplesheet-1"}
+:An example of a samplesheet for target-methylseq-qc in `picard-profiler` mode containing three columns, capturing the (i) name of the sample (ii) path to BAM file and (iii) path to the BAM index (BAI) file. []{label="samplesheet-1"}
 
 | sample    | bam                    | bai                        |
 |-----------|------------------------|----------------------------|
