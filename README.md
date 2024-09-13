@@ -9,67 +9,24 @@
 
 ## Introduction
 
-**wal-yan/target-methylseq-qc** is a bioinformatics pipeline that ...
+**wal-yan/target-methylseq-qc** is a lightweight pipeline for collecting metrics from targeted sequence mapping files.
 
-<!-- TODO nf-core:
-   Complete this sentence with a 2-3 sentence summary of what types of data the pipeline ingests, a brief overview of the
-   major pipeline sections and the types of output it produces. You're giving an overview to someone new
-   to nf-core here, in 15-20 seconds. For an example, see https://github.com/nf-core/rnaseq/blob/master/README.md#introduction
--->
+The `target-methylseq-qc` pipeline is designed to streamline the quality control process for target methylation sequencing data. Researchers and bioinformaticians working with methylation sequencing data often face challenges in ensuring data quality and consistency across different samples and experiments. This pipeline addresses these challenges by providing a standardized and automated workflow for quality control, leveraging the capabilities of the nf-core framework.
 
-<!-- TODO nf-core: Include a figure that guides the user through the major workflow steps. Many nf-core
-     workflows use the "tube map" design for that. See https://nf-co.re/docs/contributing/design_guidelines#examples for examples.   -->
-<!-- TODO nf-core: Fill in short bullet-pointed list of the default steps in the pipeline -->
+Key features of the target-methylseq-qc pipeline include
 
-1. Read QC ([`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))
-2. Present QC for raw reads ([`MultiQC`](http://multiqc.info/))
+(i) **Standardized Input Format**: The pipeline expects a CSV samplesheet with specific fields tailored to different modes (`picard_profiler` and `bed_filter`), ensuring consistency and ease of use
 
-## Usage
+(ii) **Flexible Execution Modes**: Users can choose between different subworkflows (picard_profiler and bed_filter) based on their specific needs, enabling tailored quality control processes
 
-> **Note**
-> If you are new to Nextflow and nf-core, please refer to [this page](https://nf-co.re/docs/usage/installation) on how
-> to set-up Nextflow. Make sure to [test your setup](https://nf-co.re/docs/usage/introduction#how-to-run-a-pipeline)
-> with `-profile test` before running the workflow on actual data.
+(iii) **Comprehensive  Parameter Control**: Users can fine-tune the pipeline's behavior through a wide range of parameters, covering execution modes, input/output options, reference genome options, and infrastructural configuration.
 
-<!-- TODO nf-core: Describe the minimum required steps to execute the pipeline, e.g. how to prepare samplesheets.
-     Explain what rows and columns represent. For instance (please edit as appropriate):
+By automating and standardizing the quality control process, the target-methylseq-qc pipeline helps researchers save time, reduce errors, and ensure high-quality data for downstream analysis and clinically applicable insights.
 
-First, prepare a samplesheet with your input data that looks as follows:
 
-`samplesheet.csv`:
+## Documentation
 
-```csv
-sample,fastq_1,fastq_2
-CONTROL_REP1,AEG588A1_S1_L002_R1_001.fastq.gz,AEG588A1_S1_L002_R2_001.fastq.gz
-```
-
-Each row represents a fastq file (single-end) or a pair of fastq files (paired end).
-
--->
-
-Now, you can run the pipeline using:
-
-<!-- TODO nf-core: update the following command to include all required parameters for a minimal example -->
-
-```bash
-nextflow run wal-yan/target-methylseq-qc \
-   -profile <docker/singularity/.../institute> \
-   --input samplesheet.csv \
-   --outdir <OUTDIR>
-```
-
-> **Warning:**
-> Please provide pipeline parameters via the CLI or Nextflow `-params-file` option. Custom config files including those
-> provided by the `-c` Nextflow option can be used to provide any configuration _**except for parameters**_;
-> see [docs](https://nf-co.re/usage/configuration#custom-configuration-files).
-
-## Credits
-
-wal-yan/target-methylseq-qc was originally written by abhi18av.
-
-We thank the following people for their extensive assistance in the development of this pipeline:
-
-<!-- TODO nf-core: If applicable, make list of people who have also contributed -->
+The documentation for the pipeline is hosted in https://wal-yan.github.io/target-methylseq-qc/usage.html
 
 ## Contributions and Support
 
@@ -77,12 +34,20 @@ If you would like to contribute to this pipeline, please see the [contributing g
 
 ## Citations
 
-<!-- TODO nf-core: Add citation for pipeline after first release. Uncomment lines below and update Zenodo doi and badge at the top of this file. -->
-<!-- If you use  wal-yan/target-methylseq-qc for your analysis, please cite it using the following doi: [10.5281/zenodo.XXXXXX](https://doi.org/10.5281/zenodo.XXXXXX) -->
+If you use the pipeline in your work, please cite the pipeline as shown below (in BIBTEX)
 
-<!-- TODO nf-core: Add bibliography of tools and data used in your pipeline -->
+```tex
+@software{Sharma_wal-yan_target-methylseq-qc_2023,
+author = {Sharma, Abhinav and Conradie, Talya and Martino, David and Stick, Stephen and Agudelo-Romero, Patricia},
+month = aug,
+title = {{wal-yan/target-methylseq-qc}},
+url = {https://github.com/wal-yan/target-methylseq-qc},
+version = {1.0.0},
+year = {2023}
+}
+```
 
-An extensive list of references for the tools used by the pipeline can be found in the [`CITATIONS.md`](CITATIONS.md) file.
+In addition, an extensive list of references for the tools used by the pipeline can be found in the [`CITATIONS.md`](CITATIONS.md) file.
 
 This pipeline uses code and infrastructure developed and maintained by the [nf-core](https://nf-co.re) community, reused here under the [MIT license](https://github.com/nf-core/tools/blob/master/LICENSE).
 
