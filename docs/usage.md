@@ -1,10 +1,11 @@
 # Usage
 
-> _Documentation of pipeline parameters is generated automatically from the pipeline schema and can no longer be found in markdown files._
+`target-methylseq-qc`: a lightweight pipeline for collecting metrics from targeted sequence mapping files.
 
 ## Introduction
 
-<!-- TODO nf-core: Add documentation about anything specific to running your pipeline. For general topics, please point to (and add to) the main nf-core website. -->
+We developed the `target-methylseq-qc` pipeline (https://doi.org/10.5281/zenodo.13147688), designed to (i) collect metrics from alignment files generated in targeted-methylation sequence analysis using the `picard_profiler` mode and (ii) filtering `bedGraph` for features overlapping with the reference BED file using the `bed_filter` mode, both of these modes are subworkflows written using the Nextflow workflow language.
+
 
 ## Samplesheet input
 
@@ -20,8 +21,7 @@ You will need to create a samplesheet with information about the samples you wou
 # Input
 
 
-
-
+## `picard_profiler` mode
 
 Following the convention for standard input in the Nextflow pipelines, target-methylseq-qc expects a CSV samplesheet as an input with the following fields. An example of a samplesheet \autoref{samplesheet-1} for target-methylseq-qc in `picard-profiler` mode containing three columns, capturing the (i) name of the sample (ii) path to BAM file and (iii) path to the BAM index (BAI) file.
 
@@ -41,6 +41,7 @@ The pipeline requires the use of the compressed alignment files bam and bai, out
 | `bai` | Full path to bai file for sample. File must be those that are "mark duplicate alignments" in sorted files from previous methylseq runs.                                                              |
 | `bam` | Full path to bam file for sample. File must be those that are "mark duplicate alignments" in sorted files from previous methylseq runs.                                                             |
 
+## `bed_filter` mode
 
 Whereas the `bed_filter` mode requires a different set of columns in the input samplesheet CSV file. Samplesheet structure for `bed_filter` mode
 
@@ -48,8 +49,6 @@ Whereas the `bed_filter` mode requires a different set of columns in the input s
 |-----------|-----------------------------|
 | sample-01 | /path/to/sample-01.bedGraph |
 | sample-02 | /path/to/sample-02.bedGraph |
-
-
 
 
 
