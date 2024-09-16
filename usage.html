@@ -168,8 +168,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#full-samplesheet" id="toc-full-samplesheet" class="nav-link" data-scroll-target="#full-samplesheet">Full samplesheet</a></li>
   </ul></li>
+  </ul></li>
+  <li><a href="#input" id="toc-input" class="nav-link" data-scroll-target="#input">Input</a>
+  <ul class="collapse">
+  <li><a href="#picard_profiler-mode" id="toc-picard_profiler-mode" class="nav-link" data-scroll-target="#picard_profiler-mode"><code>picard_profiler</code> mode</a></li>
+  <li><a href="#bed_filter-mode" id="toc-bed_filter-mode" class="nav-link" data-scroll-target="#bed_filter-mode"><code>bed_filter</code> mode</a></li>
   <li><a href="#running-the-pipeline" id="toc-running-the-pipeline" class="nav-link" data-scroll-target="#running-the-pipeline">Running the pipeline</a>
   <ul class="collapse">
+  <li><a href="#test-profiles" id="toc-test-profiles" class="nav-link" data-scroll-target="#test-profiles">Test profiles</a></li>
+  <li><a href="#using-your-own-dataset" id="toc-using-your-own-dataset" class="nav-link" data-scroll-target="#using-your-own-dataset">Using your own dataset</a></li>
   <li><a href="#unsure-whether-this-section-is-a-generalisation-and-should-stay-as-is" id="toc-unsure-whether-this-section-is-a-generalisation-and-should-stay-as-is" class="nav-link" data-scroll-target="#unsure-whether-this-section-is-a-generalisation-and-should-stay-as-is">Unsure whether this section is a generalisation and should stay as is?</a></li>
   <li><a href="#updating-the-pipeline" id="toc-updating-the-pipeline" class="nav-link" data-scroll-target="#updating-the-pipeline">Updating the pipeline</a></li>
   <li><a href="#reproducibility" id="toc-reproducibility" class="nav-link" data-scroll-target="#reproducibility">Reproducibility</a></li>
@@ -215,12 +222,36 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">--samplesheet</span> <span class="st">'[path to samplesheet file]'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <section id="full-samplesheet" class="level3">
 <h3 class="anchored" data-anchor-id="full-samplesheet">Full samplesheet</h3>
-<p>The pipeline requires the use of the compressed alignment files bam and bai, output from the nfcore/methylseq pipeline. The samplesheet requires three columns, which must follow the order given below.</p>
-<pre class="console"><code>sample,bai,bam
-CONTROL_REP1,AEG588A1_S1_L002_R1_001.markdup.sorted.bam.bai,AEG588A1_S1_L002_R2_001.markdup.sorted.bam
-CONTROL_REP2,AEG588A2_S2_L002_R1_001.markdup.sorted.bam.bai,AEG588A2_S2_L002_R2_001.markdup.sorted.bam
-CONTROL_REP3,AEG588A3_S3_L002_R1_001.markdup.sorted.bam.bai,AEG588A3_S3_L002_R2_001.markdup.sorted.bam
-</code></pre>
+</section>
+</section>
+</section>
+<section id="input" class="level1">
+<h1>Input</h1>
+<section id="picard_profiler-mode" class="level2">
+<h2 class="anchored" data-anchor-id="picard_profiler-mode"><code>picard_profiler</code> mode</h2>
+<p>Following the convention for standard input in the Nextflow pipelines, target-methylseq-qc expects a CSV samplesheet as an input with the following fields. An example of a samplesheet for target-methylseq-qc in <code>picard-profiler</code> mode containing three columns, capturing the (i) name of the sample (ii) path to BAM file and (iii) path to the BAM index (BAI) file.</p>
+<p>The pipeline requires the use of the compressed alignment files bam and bai, output from the nfcore/methylseq pipeline. Samplesheet structure for <code>picard_profiler</code> mode</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>sample</th>
+<th>bam</th>
+<th>bai</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>sample-01</td>
+<td>/path/to/sample-01.bam</td>
+<td>/path/to/sample-01.bai</td>
+</tr>
+<tr class="even">
+<td>sample-02</td>
+<td>/path/to/sample-02.bam</td>
+<td>/path/to/sample-02.bai</td>
+</tr>
+</tbody>
+</table>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 4%">
@@ -247,19 +278,58 @@ CONTROL_REP3,AEG588A3_S3_L002_R1_001.markdup.sorted.bam.bai,AEG588A3_S3_L002_R2_
 </tr>
 </tbody>
 </table>
-<p>An <a href="../assets/test_samplesheet.csv">example samplesheet</a> has been provided with the pipeline.</p>
 </section>
+<section id="bed_filter-mode" class="level2">
+<h2 class="anchored" data-anchor-id="bed_filter-mode"><code>bed_filter</code> mode</h2>
+<p>Whereas the <code>bed_filter</code> mode requires a different set of columns in the input samplesheet CSV file. Samplesheet structure for <code>bed_filter</code> mode</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>sample</th>
+<th>bedGraph</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>sample-01</td>
+<td>/path/to/sample-01.bedGraph</td>
+</tr>
+<tr class="even">
+<td>sample-02</td>
+<td>/path/to/sample-02.bedGraph</td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="running-the-pipeline" class="level2">
 <h2 class="anchored" data-anchor-id="running-the-pipeline">Running the pipeline</h2>
+<section id="test-profiles" class="level3">
+<h3 class="anchored" data-anchor-id="test-profiles">Test profiles</h3>
+<p>Two built-in test profiles are available in target-methylseq-qc pipeline for each mode of execution. These profiles can be used to run tests on the relevant infrastructure using the bundled test datasets <span class="citation" data-cites="test_dataset">[@test_dataset]</span>, helping users to identify and resolve any infrastructural issue before the analysis stage.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># picard_profiler mode</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> nextflow run wal-yan/target-methylseq-qc <span class="dt">\</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">-profile</span> docker,test_picard_profiler</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># bed_filter mode</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> nextflow run wal-yan/target-methylseq-qc <span class="dt">\</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">-profile</span> docker,test_bed_filter</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="using-your-own-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="using-your-own-dataset">Using your own dataset</h3>
 <p>The command for running the pipeline is as follows:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">nextflow</span> run https://github.com/wal-yan/bed-filter <span class="at">--samplesheet</span> /path/to/samplesheet.csv <span class="at">--bed</span> /data/Twist_met/Twist_Methylome/bundle_reference_files/covered_targets_Twist_Methylome_hg38_annotated_collapsed.bed <span class="at">-profile</span> docker</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">nextflow</span> run wal-yan/target-methylseq-qc <span class="dt">\</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">--samplesheet</span> /path/to/samplesheet.csv <span class="dt">\</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">--bed</span> /data/Twist_met/Twist_Methylome/bundle_reference_files/covered_targets_Twist_Methylome_hg38_annotated_collapsed.bed <span class="dt">\</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">-profile</span> docker</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This will launch the pipeline with the <code>docker</code> configuration profile. See below for more information about profiles.</p>
 <p>Note that the pipeline will create the following files in your working directory:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">work</span>                <span class="co"># Directory containing the nextflow working files</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>OUTDIR<span class="op">&gt;</span>            <span class="co"># Finished results in specified location (defined with --outdir)</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">.nextflow_log</span>       <span class="co"># Log file from Nextflow</span></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Other nextflow hidden files, eg. history of pipeline runs and old logs.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
 <section id="unsure-whether-this-section-is-a-generalisation-and-should-stay-as-is" class="level3">
 <h3 class="anchored" data-anchor-id="unsure-whether-this-section-is-a-generalisation-and-should-stay-as-is">Unsure whether this section is a generalisation and should stay as is?</h3>
 <p>If you wish to repeatedly use the same parameters for multiple runs, rather than specifying each flag in the command, you can specify these in a params file.</p>
