@@ -16,16 +16,24 @@ You will need to create a samplesheet with information about the samples you wou
 
 ### Full samplesheet
 
-The pipeline requires the use of the compressed alignment files bam and bai, output from the nfcore/methylseq pipeline. The samplesheet requires three columns, which must follow the order given below.
+
+# Input
 
 
-```console
-sample,bai,bam
-CONTROL_REP1,AEG588A1_S1_L002_R1_001.markdup.sorted.bam.bai,AEG588A1_S1_L002_R2_001.markdup.sorted.bam
-CONTROL_REP2,AEG588A2_S2_L002_R1_001.markdup.sorted.bam.bai,AEG588A2_S2_L002_R2_001.markdup.sorted.bam
-CONTROL_REP3,AEG588A3_S3_L002_R1_001.markdup.sorted.bam.bai,AEG588A3_S3_L002_R2_001.markdup.sorted.bam
 
-```
+
+
+Following the convention for standard input in the Nextflow pipelines, target-methylseq-qc expects a CSV samplesheet as an input with the following fields. An example of a samplesheet \autoref{samplesheet-1} for target-methylseq-qc in `picard-profiler` mode containing three columns, capturing the (i) name of the sample (ii) path to BAM file and (iii) path to the BAM index (BAI) file.
+
+
+The pipeline requires the use of the compressed alignment files bam and bai, output from the nfcore/methylseq pipeline. Samplesheet structure for `picard_profiler` mode
+
+| sample    | bam                    | bai                        |
+|-----------|------------------------|----------------------------|
+| sample-01 | /path/to/sample-01.bam | /path/to/sample-01.bai     |
+| sample-02 | /path/to/sample-02.bam | /path/to/sample-02.bai     |
+
+
 
 | Column    | Description                                                                                                                                                                            |
 | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -33,14 +41,48 @@ CONTROL_REP3,AEG588A3_S3_L002_R1_001.markdup.sorted.bam.bai,AEG588A3_S3_L002_R2_
 | `bai` | Full path to bai file for sample. File must be those that are "mark duplicate alignments" in sorted files from previous methylseq runs.                                                              |
 | `bam` | Full path to bam file for sample. File must be those that are "mark duplicate alignments" in sorted files from previous methylseq runs.                                                             |
 
-An [example samplesheet](../assets/test_samplesheet.csv) has been provided with the pipeline.
+
+Whereas the `bed_filter` mode requires a different set of columns in the input samplesheet CSV file. Samplesheet structure for `bed_filter` mode
+
+| sample    | bedGraph                    |
+|-----------|-----------------------------|
+| sample-01 | /path/to/sample-01.bedGraph |
+| sample-02 | /path/to/sample-02.bedGraph |
+
+
+
+
 
 ## Running the pipeline
+
+
+### Test profiles
+
+Two built-in test profiles are available in target-methylseq-qc pipeline for each mode of execution. These profiles can be used to run tests on the relevant infrastructure using the bundled test datasets [@test_dataset], helping users to identify and resolve any infrastructural issue before the analysis stage.
+
+
+```bash
+
+# picard_profiler mode
+$ nextflow run wal-yan/target-methylseq-qc \
+  -profile docker,test_picard_profiler
+
+
+# bed_filter mode
+$ nextflow run wal-yan/target-methylseq-qc \
+  -profile docker,test_bed_filter
+```
+
+
+### Using your own dataset
 
 The command for running the pipeline is as follows:
 
 ```bash
-nextflow run https://github.com/wal-yan/bed-filter --samplesheet /path/to/samplesheet.csv --bed /data/Twist_met/Twist_Methylome/bundle_reference_files/covered_targets_Twist_Methylome_hg38_annotated_collapsed.bed -profile docker
+nextflow run wal-yan/target-methylseq-qc \
+         --samplesheet /path/to/samplesheet.csv \
+         --bed /data/Twist_met/Twist_Methylome/bundle_reference_files/covered_targets_Twist_Methylome_hg38_annotated_collapsed.bed \
+         -profile docker
 ```
 
 This will launch the pipeline with the `docker` configuration profile. See below for more information about profiles.
