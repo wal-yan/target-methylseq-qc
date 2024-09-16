@@ -209,12 +209,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="usage" class="level1">
 <h1>Usage</h1>
-<blockquote class="blockquote">
-<p><em>Documentation of pipeline parameters is generated automatically from the pipeline schema and can no longer be found in markdown files.</em></p>
-</blockquote>
+<p><code>target-methylseq-qc</code>: a lightweight pipeline for collecting metrics from targeted sequence mapping files.</p>
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<!-- TODO nf-core: Add documentation about anything specific to running your pipeline. For general topics, please point to (and add to) the main nf-core website. -->
+<p>We developed the <code>target-methylseq-qc</code> pipeline (https://doi.org/10.5281/zenodo.13147688), designed to (i) collect metrics from alignment files generated in targeted-methylation sequence analysis using the <code>picard_profiler</code> mode and (ii) filtering <code>bedGraph</code> for features overlapping with the reference BED file using the <code>bed_filter</code> mode, both of these modes are subworkflows written using the Nextflow workflow language.</p>
 </section>
 <section id="samplesheet-input" class="level2">
 <h2 class="anchored" data-anchor-id="samplesheet-input">Samplesheet input</h2>
