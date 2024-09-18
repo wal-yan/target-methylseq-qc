@@ -23,7 +23,7 @@ authors:
     affiliation: "2"
   - name: "Stephen Stick"
     orcid: 0000-0002-5386-8482
-    affiliation: "2, 4, 5"
+    affiliation: "4, 5"
   - name: "Patricia Agudelo-Romero"
     orcid: 0000-0002-3703-4111
     affiliation: "2, 6, 7"
