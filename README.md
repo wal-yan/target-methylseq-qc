@@ -28,6 +28,28 @@ By automating and standardizing the quality control process, the target-methylse
 
 The documentation for the pipeline is hosted in https://wal-yan.github.io/target-methylseq-qc/usage.html
 
+
+## Testing
+
+
+
+### Test profiles
+
+Two built-in test profiles are available in target-methylseq-qc pipeline for each mode of execution. These profiles can be used to run tests on the relevant infrastructure using the bundled test datasets , helping users to identify and resolve any infrastructural issue before the actual analysis stage.
+
+
+```bash
+
+# picard_profiler mode
+$ nextflow run wal-yan/target-methylseq-qc \
+  -profile docker,test_picard_profiler
+
+
+# bed_filter mode
+$ nextflow run wal-yan/target-methylseq-qc \
+  -profile docker,test_bed_filter
+``
+
 ## Contributions and Support
 
 If you would like to contribute to this pipeline, please see the [contributing guidelines](.github/CONTRIBUTING.md).
@@ -37,7 +59,7 @@ If you would like to contribute to this pipeline, please see the [contributing g
 If you use the pipeline in your work, please cite the pipeline as shown below (in BIBTEX)
 
 ```tex
-@software{Sharma_wal-yan_target-methylseq-qc_2023,
+@software{Sharma_wal-yan_target-methylseq-qc_2024,
 author = {Sharma, Abhinav and Conradie, Talya and Martino, David and Stick, Stephen and Agudelo-Romero, Patricia},
 month = aug,
 title = {{wal-yan/target-methylseq-qc}},
