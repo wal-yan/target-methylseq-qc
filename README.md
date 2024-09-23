@@ -42,8 +42,8 @@ author = {Sharma, Abhinav and Conradie, Talya and Martino, David and Stick, Step
 month = aug,
 title = {{wal-yan/target-methylseq-qc}},
 url = {https://github.com/wal-yan/target-methylseq-qc},
-version = {1.0.0},
-year = {2023}
+version = {2.0.0},
+year = {2024}
 }
 ```
 
