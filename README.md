@@ -48,7 +48,7 @@ $ nextflow run wal-yan/target-methylseq-qc \
 # bed_filter mode
 $ nextflow run wal-yan/target-methylseq-qc \
   -profile docker,test_bed_filter
-``
+```
 
 ## Contributions and Support
 
