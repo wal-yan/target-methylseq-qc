@@ -29,7 +29,7 @@ authors:
     affiliation: "2, 6, 7"
 
 affiliations:
-  - name: Division of Molecular Biology and Human Genetics, Faculty of Medicine and Health Sciences, Stellenbosch University, Cape Town.
+  - name: DSI-NRF Centre of Excellence for Biomedical Tuberculosis Research; SAMRC Centre for Tuberculosis Research; Division of Molecular Biology and Human Genetics, Faculty of Medicine and Health Sciences, Stellenbosch University, Cape Town, South Africa.
     index: 1
   - name: Wal-yan Respiratory Research Centre, Telethon Kids Institute, WA, Australia
     index: 2
@@ -60,7 +60,7 @@ On the other hand, `bed_filter` mode of the pipeline is designed to filter the b
 
 Regardless of the usage mode of the pipeline, the final MultiQC report automatically collates the relevant reports from FastQC [@andrews_fastqc_2010], Bedtool and Picard tools in an HTML document, which could be shared with collaborators or added as supplementary material in publications.
 
-target-methylseq-qc is a portable pipeline compatible with multiple platforms, such as local laptop or workstation machines, high-performance computing environments and cloud infrastructure. Although target-methylseq-qc was originally created for calculating sequencing coverage in target sequencing as a follow-up step to the `nf-core/methylseq` pipeline [@methylseq], within the Airway Epithelium Respiratory Illnesses and Allergy (AERIAL) paediatric cohort study [@kicic-starcevich_airway_2023]; its versatility allows for extending its application to other sequencing panels from various next-generation methods.
+`target-methylseq-qc` is a portable pipeline compatible with multiple platforms, such as local laptop or workstation machines, high-performance computing environments and cloud infrastructure. Although target-methylseq-qc was originally created for calculating sequencing coverage in target sequencing as a follow-up step to the `nf-core/methylseq` pipeline [@methylseq], within the Airway Epithelium Respiratory Illnesses and Allergy (AERIAL) paediatric cohort study [@kicic-starcevich_airway_2023]; its versatility allows for extending its application to other sequencing panels from various next-generation methods.
 
 # Statement of need
 
@@ -77,46 +77,30 @@ The use of the nf-core template facilitates keeping the design of the pipeline g
 
 In addition to the base workflow as mentioned in \autoref{subway-map}, the pipeline also includes optional picard/createsequencedictionary [@picard_createsequencedictionary_2022] and Samtools modules to aid users in automatically generating the required genome dictionary (DICT) file, in case they have only the reference FASTA and BED files but intend to use the pipeline. Furthermore, depending on the quality check requirements of the users, we have enabled the metrics collection for 10x, 20x, 30x and 50x coverage.
 
-# Tutorials and documentation
+
+# Pipeline setup
 
 The steps needed to configure the pipeline inputs and configuration for the relevant infrastructure are available in the documentation within the GitHub repository as well as a dedicated documentation website [@targetmethylseqqc_website].
 
-
-# Pre-requisites
-
-To ensure proper operation of the target-methylseq-qc pipeline, three dependencies must be available in the execution environment: `Java` (LTS > 11), `Nextflow` (> 24.04), and a package manager such as `conda` [@bioconda] or a container system  such as `docker` or `singularity` [@biocontainer].
-
- Getting started with the pipeline setup is straightforward given that (i) `Java` (LTS > 11)  (ii) `Nextflow` (> 24.04) and (iii) a package manager (e.g. `conda`) or a container system (e.g. `docker` or `singularity`) are available in the execution environment. The in-built test profile from the pipeline can then be used to execute the profile on the relevant infrastructure with some test dataset.
-
-
-
-# Pipeline installation
-
-target-methylseq-qc pipeline can be downloaded from the GitHub code repository using the `git` command line tool or directly through using the `Nextflow` command line tool using the following commands
-
-
-```bash
-# Git based download
-$ git clone https://github.com/wal-yan/target-methylseq-qc
-
-# Nextflow based download
-$ nextflow pull https://github.com/wal-yan/target-methylseq-qc
-
-```
-
-# Test profiles
+Getting started with the pipeline setup is straightforward given that (i) `Java` (LTS > 11)  (ii) `Nextflow` (> 24.04) and (iii) a package manager (e.g. `conda`) or a container system (e.g. `docker` or `singularity`) are available in the execution environment.
 
 Two built-in test profiles are available in target-methylseq-qc pipeline for each mode of execution. These profiles can be used to run tests on the relevant infrastructure using the bundled test datasets [@test_dataset], helping users to identify and resolve any infrastructural issue before the analysis stage.
 
 
 ```bash
 
-# picard_profiler mode
+
+# Nextflow based installation of pipeline
+$ nextflow pull https://github.com/wal-yan/target-methylseq-qc
+
+
+
+# In-built test for picard_profiler mode
 $ nextflow run wal-yan/target-methylseq-qc \
   -profile docker,test_picard_profiler
 
 
-# bed_filter mode
+# In-built test for  bed_filter mode
 $ nextflow run wal-yan/target-methylseq-qc \
   -profile docker,test_bed_filter
 ```
