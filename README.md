@@ -39,7 +39,7 @@ Two built-in test profiles are available in target-methylseq-qc pipeline for eac
 
 
 
-Two built-in test profiles are available in target-methylseq-qc pipeline for each mode of execution. These profiles can be used to run tests on the relevant infrastructure using the bundled test datasets ([published on Zenodo](https://doi.org/10.5281/10.5281/zenodo.13597863)), to help users identify and resolve any infrastructural issue before the analysis stage.
+Two built-in test profiles are available in target-methylseq-qc pipeline for each mode of execution. These profiles can be used to run tests on the relevant infrastructure using the bundled test datasets ([published on Zenodo](https://doi.org/10.5281/zenodo.13597863)), to help users identify and resolve any infrastructural issue before the analysis stage.
 
 
 **NOTE**: The snippets below assumes you have `docker` on the sever/machine you wish to test the pipeline. For other institutional configs please refer [nf-core/configs](https://nf-co.re/docs/usage/configuration#max-resources) project, which are all applicable to this pipeline.
