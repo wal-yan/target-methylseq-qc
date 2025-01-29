@@ -7,7 +7,7 @@
 We developed the `target-methylseq-qc` pipeline (https://doi.org/10.5281/zenodo.13147688), designed to (i) collect metrics from alignment files generated in targeted-methylation sequence analysis using the `picard_profiler` mode and (ii) filtering `bedGraph` for features overlapping with the reference BED file using the `bed_filter` mode, both of these modes are subworkflows written using the Nextflow workflow language.
 
 
-![Subway map for various steps in the target-methylseq-qc pipeline.](target-methylseq-qc_UPDATED_3.svg)
+![Subway map for various steps in the target-methylseq-qc pipeline.](target-methylseq-qc_REVISED.svg)
 
 
 

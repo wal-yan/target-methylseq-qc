@@ -23,7 +23,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 For the bed_filter mode, a BED file is generated with the methylation positions filtered based on the BED intervals file from the targeted methylation profile.
 
 
-![Filtered bedGraph file generated using the `bed_filter` mode of target-methylseq-qc.\label{results-2b}](bed_filter.tiff){width=70%}
+![Filtered bedGraph file generated using the `bed_filter` mode of target-methylseq-qc.\label{results-2b}](bed_filter.jpeg){width=70%}
 
 
 ### Picard Profiler
