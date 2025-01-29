@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.53">
+<meta name="generator" content="quarto-1.6.39">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -69,10 +69,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-2be10d9e998f81ff6e49e26833438aa5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -202,7 +202,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
 
 
@@ -215,7 +215,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>We developed the <code>target-methylseq-qc</code> pipeline (https://doi.org/10.5281/zenodo.13147688), designed to (i) collect metrics from alignment files generated in targeted-methylation sequence analysis using the <code>picard_profiler</code> mode and (ii) filtering <code>bedGraph</code> for features overlapping with the reference BED file using the <code>bed_filter</code> mode, both of these modes are subworkflows written using the Nextflow workflow language.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="target-methylseq-qc_UPDATED_3.svg" class="img-fluid figure-img"></p>
+<p><img src="target-methylseq-qc_REVISED.svg" class="img-fluid figure-img"></p>
 <figcaption>Subway map for various steps in the target-methylseq-qc pipeline.</figcaption>
 </figure>
 </div>
@@ -309,7 +309,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="running-the-pipeline">Running the pipeline</h2>
 <section id="test-profiles" class="level3">
 <h3 class="anchored" data-anchor-id="test-profiles">Test profiles</h3>
-<p>Two built-in test profiles are available in target-methylseq-qc pipeline for each mode of execution. These profiles can be used to run tests on the relevant infrastructure using the bundled test datasets <span class="citation" data-cites="test_dataset">[@test_dataset]</span>, helping users to identify and resolve any infrastructural issue before the analysis stage.</p>
+<p>Two built-in test profiles are available in target-methylseq-qc pipeline for each mode of execution. These profiles can be used to run tests on the relevant infrastructure using the bundled test datasets (<a href="https://doi.org/10.5281/10.5281/zenodo.13597863">published on Zenodo</a>), to help users identify and resolve any infrastructural issue before the analysis stage.</p>
+<p><strong>NOTE</strong>: The snippets below assumes you have <code>docker</code> on the sever/machine you wish to test the pipeline. For other institutional configs please refer <a href="https://nf-co.re/docs/usage/configuration#max-resources">nf-core/configs</a> project, which are all applicable to this pipeline.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># picard_profiler mode</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> nextflow run wal-yan/target-methylseq-qc <span class="dt">\</span></span>
@@ -554,8 +555,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -666,7 +665,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {
