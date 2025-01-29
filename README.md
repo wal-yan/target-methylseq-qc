@@ -19,9 +19,9 @@ Key features of the target-methylseq-qc pipeline include
 
 (ii) **Flexible Execution Modes**: Users can choose between different subworkflows (picard_profiler and bed_filter) based on their specific needs, enabling tailored quality control processes
 
-(iii) **Comprehensive  Parameter Control**: Users can fine-tune the pipeline's behavior through a wide range of parameters, covering execution modes, input/output options, reference genome options, and infrastructural configuration.
+(iii) **Comprehensive Parameter Control**: Users can fine-tune the pipeline's behavior through a wide range of parameters, covering execution modes, input/output options, reference genome options, and infrastructural configuration.
 
-By automating and standardizing the quality control process, the target-methylseq-qc pipeline helps researchers save time, reduce errors, and ensure high-quality data for downstream analysis and clinically applicable insights.
+By automating and standardizing the quality control process, the `target-methylseq-qc` pipeline helps researchers save time, reduce errors, and ensure high-quality data for downstream analysis and clinically applicable insights.
 
 
 ## Documentation
@@ -34,10 +34,6 @@ The documentation for the pipeline is hosted in https://wal-yan.github.io/target
 
 
 ### Test profiles
-
-Two built-in test profiles are available in target-methylseq-qc pipeline for each mode of execution. These profiles can be used to run tests on the relevant infrastructure using the bundled test datasets , helping users to identify and resolve any infrastructural issue before the actual analysis stage.
-
-
 
 Two built-in test profiles are available in target-methylseq-qc pipeline for each mode of execution. These profiles can be used to run tests on the relevant infrastructure using the bundled test datasets ([published on Zenodo](https://doi.org/10.5281/zenodo.13597863)), to help users identify and resolve any infrastructural issue before the analysis stage.
 

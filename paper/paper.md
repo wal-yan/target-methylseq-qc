@@ -73,7 +73,7 @@ The target-methylseq-qc pipeline builds upon the standardised pipeline template 
 The use of the nf-core template facilitates keeping the design of the pipeline generic and portable across different execution platforms, therefore the target-methylseq-qc pipeline can be used on local machines, HPC orchestrators (e.g. SLURM, PBS), and cloud computing systems such as AWS Batch, Azure Batch, Google Batch, in addition to the more generic Kubernetes distribution.
 
 
-![Subway map for various steps in the target-methylseq-qc pipeline.\label{subway-map}](target-methylseq-qc_UPDATED_3.svg)
+![Subway map for various steps in the target-methylseq-qc pipeline.\label{subway-map}](target-methylseq-qc_REVISED.svg)
 
 In addition to the base workflow as mentioned in \autoref{subway-map}, the pipeline also includes optional picard/createsequencedictionary [@picard_createsequencedictionary_2022] and Samtools modules to aid users in automatically generating the required genome dictionary (DICT) file, in case they have only the reference FASTA and BED files but intend to use the pipeline. Furthermore, depending on the quality check requirements of the users, we have enabled the metrics collection for 10x, 20x, 30x and 50x coverage.
 
