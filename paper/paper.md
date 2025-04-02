@@ -151,7 +151,7 @@ The behaviour of the pipeline can be controlled through the pipeline parameters 
 Upon completion, the two subworkflows generate different outputs which are presented together in the MultiQC file. For the `picard_profile` mode, a MultiQC file is produced, providing the relevant results related to the coverage metrics (\autoref{results-2a}). For the `bed_filter` mode, a BED file is generated with the methylation positions filtered based on the BED intervals file from the targeted methylation profile (\autoref{results-2b}).
 
 
-![MultiQC report generated for target-methylseq-qc, in `picard-profiler` highlighting the refine metrics from targeted sequencing at 10X, 20X, 30X and 50X coverage.\label{results-2a}](multiqc.tiff)
+![MultiQC report generated for target-methylseq-qc, in `picard-profiler` highlighting the refine metrics from targeted sequencing at 10x, 20x, 30x and 50x coverage.\label{results-2a}](multiqc.tiff)
 
 
 ![Filtered bedGraph file generated using the `bed_filter` mode of target-methylseq-qc.\label{results-2b}](bed_filter.tiff){width=70%}
