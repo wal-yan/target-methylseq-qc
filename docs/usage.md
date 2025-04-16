@@ -10,6 +10,36 @@ We developed the `target-methylseq-qc` pipeline (https://doi.org/10.5281/zenodo.
 ![Subway map for various steps in the target-methylseq-qc pipeline.](target-methylseq-qc_REVISED.svg)
 
 
+## Pipeline setup
+
+The steps needed to configure the pipeline inputs and configuration for the relevant infrastructure are available in the documentation within the GitHub repository as well as a dedicated documentation website [@targetmethylseqqc_website].
+
+Getting started with the pipeline setup is straightforward given that (i) `Java` (LTS > 11)  (ii) `Nextflow` (> 24.04) and (iii) a package manager (e.g. `conda`) or a container system (e.g. `docker` or `singularity`) are available in the execution environment.
+
+Two built-in test profiles are available in target-methylseq-qc pipeline for each mode of execution. These profiles can be used to run tests on the relevant infrastructure using the bundled test datasets [@test_dataset], helping users to identify and resolve any infrastructural issue before the analysis stage.
+
+
+```bash
+
+
+# Nextflow based installation of pipeline
+$ nextflow pull https://github.com/wal-yan/target-methylseq-qc
+
+
+
+# In-built test for picard_profiler mode
+$ nextflow run wal-yan/target-methylseq-qc \
+  -profile docker,test_picard_profiler
+
+
+# In-built test for  bed_filter mode
+$ nextflow run wal-yan/target-methylseq-qc \
+  -profile docker,test_bed_filter
+```
+
+
+
+
 
 ## Samplesheet input
 
