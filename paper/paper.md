@@ -44,7 +44,7 @@ affiliations:
   - name: European Virus Bioinformatics Center, TH, Germany.
     index: 7
 
-date: 18 August 2024
+date: 25 April 2025
 bibliography: paper.bib
 
 ---
@@ -62,7 +62,7 @@ On the other hand, `bed_filter` mode of the pipeline is designed to filter the b
 Regardless of the usage mode of the pipeline, the final MultiQC report automatically collates the relevant reports from FastQC [@andrews_fastqc_2010], bedtools and Picard tools in an HTML document, which could be shared with collaborators or added as supplementary material in publications.
 
 
-`target-methylseq-qc` is a portable pipeline compatible with multiple execution platforms, such as local laptop or workstation machines, high-performance computing environments and cloud infrastructure. Although target-methylseq-qc was originally created for calculating sequencing coverage in target sequencing as a follow-up step to the `nf-core/methylseq` pipeline [@methylseq], aimed at identification of children at the risk of developing asthma, prior to its onset [@patricia2023-aerial]. The pipeline's versatility allows for extending its application to other sequencing panels from various next-generation methods.
+`target-methylseq-qc` is a portable pipeline compatible with multiple execution platforms, such as local laptop or workstation machines, high-performance computing environments and cloud infrastructure. Although, `target-methylseq-qc` pipeline was originally created for calculating sequencing coverage in target sequencing as a follow-up step to the nf-core/methylseq pipeline [@methylseq], with the initial objective of identifying children at risk of developing asthma before onset [@patricia2023-aerial]; the pipeline's versatility extends its application. It can be used with other sequencing panels from various next-generation methods.
 
 
 # Statement of need
@@ -80,6 +80,7 @@ The use of the nf-core template facilitates keeping the design of the pipeline g
 
 
 In addition to the base workflow as mentioned in \autoref{subway-map}, the pipeline also includes optional picard/createsequencedictionary [@picard_createsequencedictionary_2022] and Samtools modules to aid users in automatically generating the required genome dictionary (DICT) file, in case they have only the reference FASTA and BED files but intend to use the pipeline. Furthermore, depending on the quality check requirements of the users, the MultiQC configuration allows for the metrics collection for 10x, 20x, 30x and 50x coverage.
+
 
 # Input
 
