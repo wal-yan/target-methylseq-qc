@@ -31,7 +31,7 @@ authors:
 affiliations:
   - name: DSI-NRF Centre of Excellence for Biomedical Tuberculosis Research; SAMRC Centre for Tuberculosis Research; Division of Molecular Biology and Human Genetics, Faculty of Medicine and Health Sciences, Stellenbosch University, Cape Town, South Africa.
     index: 1
-  - name: Wal-yan Respiratory Research Centre, Telethon Kids Institute, WA, Australia
+  - name: Wal-yan Respiratory Research Centre, The Kids Research Institute Australia, WA, Australia
     index: 2
   - name: Medical, Molecular and Forensic Sciences, Murdoch University, WA, Australia
     index: 3
@@ -44,7 +44,7 @@ affiliations:
   - name: European Virus Bioinformatics Center, TH, Germany.
     index: 7
 
-date: 25 April 2025
+date: 30 April 2025
 bibliography: paper.bib
 
 ---
