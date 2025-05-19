@@ -71,7 +71,7 @@ The `target-methylseq-qc` pipeline is designed to streamline the quality control
 
 # Design principles and capabilities
 
-The `target-methylseq-qc` pipeline builds upon the standardised pipeline template maintained by the nf-core community [@ewels_nf-core_2020] for Nextflow pipelines and makes use of the `nf-core/modules` project to install modules for FastQC, MultiQC [@ewels_multiqc_2016], bedtools, Picard tools as well as Samtools [@danecek_twelve_2021] within the pipeline (\autoref{subway-map}).
+The `target-methylseq-qc` pipeline builds upon the standardized pipeline template maintained by the nf-core community [@ewels_nf-core_2020] for Nextflow pipelines and makes use of the `nf-core/modules` project to install modules for FastQC, MultiQC [@ewels_multiqc_2016], bedtools, Picard tools as well as Samtools [@danecek_twelve_2021] within the pipeline (\autoref{subway-map}).
 
 The use of the nf-core template facilitates keeping the design of the pipeline generic and portable across different execution platforms. Hence, the `target-methylseq-qc` pipeline can be used on local machines, HPC orchestrators (e.g. SLURM, PBS), and cloud computing systems such as AWS Batch, Azure Batch, Google Batch, in addition to the more generic Kubernetes distribution.
 
@@ -107,7 +107,7 @@ The `bed_filter` mode requires a different set of columns in the input sampleshe
 
 The pipeline initialization step, as per the best practices of the nf-core template, checks the validity of the file paths specified to be either a POSIX-compliant file system or a cloud object storage path for files stored in AWS S3, Azure Blob Storage or Google Cloud Storage buckets.
 
-The behaviour of the pipeline can be controlled through the pipeline parameters which are divided into different groups such as (i) Execution Mode, (ii) Input/Output Options, and (iii) Reference Genome Options. In addition, generic parameters are inherited from the nf-core template, including (i) max job request options, (ii) generic options and (iii) institutional config options. A complete list of the parameters specific to the `target-methylseq-qc` pipeline is summarised in \autoref{parameters}.
+The behavior of the pipeline can be controlled through the pipeline parameters which are divided into different groups such as (i) Execution Mode, (ii) Input/Output Options, and (iii) Reference Genome Options. In addition, generic parameters are inherited from the nf-core template, including (i) max job request options, (ii) generic options and (iii) institutional config options. A complete list of the parameters specific to the `target-methylseq-qc` pipeline is summarized in \autoref{parameters}.
 
 :Summary of pipeline-specific parameters for target-methylseq-qc pipeline \label{parameters}.
 
